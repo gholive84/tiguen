@@ -66,23 +66,4 @@ function tiguen_register_equipe() {
 }
 add_action( 'init', 'tiguen_register_equipe' );
 
-// CPT: Serviços
-function tiguen_register_servicos() {
-    register_post_type( 'servicos', [
-        'labels' => [
-            'name'          => 'Serviços',
-            'singular_name' => 'Serviço',
-            'add_new_item'  => 'Adicionar Serviço',
-            'edit_item'     => 'Editar Serviço',
-        ],
-        'public'       => true,
-        'show_in_menu' => true,
-        'menu_icon'    => 'dashicons-hammer',
-        'menu_position'=> 7,
-        'supports'     => [ 'title', 'editor', 'thumbnail' ],
-        'has_archive'  => false,
-        'rewrite'      => [ 'slug' => 'servicos' ],
-        'show_in_rest' => true,
-    ]);
-}
-add_action( 'init', 'tiguen_register_servicos' );
+// Serviços removido — conteúdo gerenciado diretamente na página de Serviços

@@ -84,7 +84,6 @@ add_action( 'widgets_init', 'tiguen_widgets_init' );
 function tiguen_activate() {
     tiguen_register_projetos();
     tiguen_register_equipe();
-    tiguen_register_servicos();
     flush_rewrite_rules();
 }
 add_action( 'after_switch_theme', 'tiguen_activate' );
