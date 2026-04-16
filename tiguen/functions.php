@@ -3,41 +3,99 @@
  * Tiguen Theme Functions
  */
 
-// Suporte a recursos do tema
+// Includes
+require_once get_template_directory() . '/inc/post-types.php';
+require_once get_template_directory() . '/inc/meta-boxes.php';
+require_once get_template_directory() . '/inc/ajax-handlers.php';
+
+// Setup do tema
 function tiguen_setup() {
     add_theme_support( 'title-tag' );
     add_theme_support( 'post-thumbnails' );
     add_theme_support( 'html5', [ 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ] );
-    add_theme_support( 'custom-logo' );
+    add_theme_support( 'custom-logo', [
+        'height'      => 60,
+        'width'       => 200,
+        'flex-height' => true,
+        'flex-width'  => true,
+    ]);
     add_theme_support( 'menus' );
 
+    // Tamanhos de imagem
+    add_image_size( 'projeto-thumb',   600, 450, true );
+    add_image_size( 'projeto-hero',   1200, 600, true );
+    add_image_size( 'projeto-galeria', 800, 600, true );
+    add_image_size( 'equipe-thumb',    400, 400, true );
+
     register_nav_menus([
-        'primary' => __( 'Menu Principal', 'tiguen' ),
-        'footer'  => __( 'Menu Rodapé', 'tiguen' ),
+        'primary' => 'Menu Principal',
+        'footer'  => 'Menu Rodapé',
     ]);
 }
 add_action( 'after_setup_theme', 'tiguen_setup' );
 
-// Enqueue de estilos e scripts
+// Enqueue
 function tiguen_scripts() {
     wp_enqueue_style( 'tiguen-style', get_stylesheet_uri(), [], '1.0.0' );
-    wp_enqueue_style( 'tiguen-main', get_template_directory_uri() . '/assets/css/main.css', [], '1.0.0' );
-    wp_enqueue_script( 'tiguen-main', get_template_directory_uri() . '/assets/js/main.js', [], '1.0.0', true );
+    wp_enqueue_style( 'tiguen-main',  get_template_directory_uri() . '/assets/css/main.css', [], '1.0.0' );
+    wp_enqueue_script( 'tiguen-main', get_template_directory_uri() . '/assets/js/main.js', [ 'jquery' ], '1.0.0', true );
+
+    wp_localize_script( 'tiguen-main', 'tiguenData', [
+        'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
+        'contatoNonce'   => wp_create_nonce( 'tiguen_contato_nonce' ),
+        'curriculoNonce' => wp_create_nonce( 'tiguen_curriculo_nonce' ),
+        'whatsapp'       => '5541305800377',
+    ]);
 }
 add_action( 'wp_enqueue_scripts', 'tiguen_scripts' );
 
-// Custom Post Types — adicionar aqui
-// include get_template_directory() . '/inc/post-types.php';
+// Enqueue admin — media uploader nos meta boxes
+function tiguen_admin_scripts( $hook ) {
+    global $post_type;
+    if ( $post_type === 'projetos' ) {
+        wp_enqueue_media();
+    }
+}
+add_action( 'admin_enqueue_scripts', 'tiguen_admin_scripts' );
 
 // Widgets
 function tiguen_widgets_init() {
     register_sidebar([
-        'name'          => __( 'Sidebar', 'tiguen' ),
+        'name'          => 'Sidebar',
         'id'            => 'sidebar-1',
         'before_widget' => '<div id="%1$s" class="widget %2$s">',
         'after_widget'  => '</div>',
         'before_title'  => '<h3 class="widget-title">',
         'after_title'   => '</h3>',
     ]);
+    register_sidebar([
+        'name'          => 'Rodapé',
+        'id'            => 'footer-1',
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h4 class="widget-title">',
+        'after_title'   => '</h4>',
+    ]);
 }
 add_action( 'widgets_init', 'tiguen_widgets_init' );
+
+// Flush rewrite rules ao ativar tema
+function tiguen_activate() {
+    tiguen_register_projetos();
+    tiguen_register_equipe();
+    tiguen_register_servicos();
+    flush_rewrite_rules();
+}
+add_action( 'after_switch_theme', 'tiguen_activate' );
+
+// Helper: embed YouTube/Vimeo
+function tiguen_get_video_embed( $url ) {
+    if ( empty( $url ) ) return '';
+    if ( preg_match( '/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $url, $m ) ) {
+        return '<iframe width="100%" height="450" src="https://www.youtube.com/embed/' . esc_attr($m[1]) . '" frameborder="0" allowfullscreen loading="lazy"></iframe>';
+    }
+    if ( preg_match( '/vimeo\.com\/(\d+)/', $url, $m ) ) {
+        return '<iframe width="100%" height="450" src="https://player.vimeo.com/video/' . esc_attr($m[1]) . '" frameborder="0" allowfullscreen loading="lazy"></iframe>';
+    }
+    return '';
+}

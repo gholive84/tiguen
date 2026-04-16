@@ -1,5 +1,162 @@
 // Tiguen — Main JavaScript
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Placeholder para scripts futuros
+
+    // ─── MOBILE MENU ────────────────────────────────────────────
+    var toggle = document.querySelector('.menu-toggle');
+    var nav    = document.querySelector('.main-navigation');
+    if (toggle && nav) {
+        toggle.addEventListener('click', function () {
+            nav.classList.toggle('open');
+            var expanded = nav.classList.contains('open');
+            toggle.setAttribute('aria-expanded', expanded);
+        });
+    }
+
+    // ─── SCROLL ANIMATIONS ──────────────────────────────────────
+    var animEls = document.querySelectorAll('[data-animate]');
+    if (animEls.length && 'IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        animEls.forEach(function (el, i) {
+            el.style.transitionDelay = (i * 0.07) + 's';
+            observer.observe(el);
+        });
+    } else {
+        animEls.forEach(function (el) { el.classList.add('animated'); });
+    }
+
+    // ─── CONTADOR DE OBRAS ──────────────────────────────────────
+    var counters = document.querySelectorAll('[data-counter]');
+    if (counters.length && 'IntersectionObserver' in window) {
+        var counterObs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    counterObs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(function (el) { counterObs.observe(el); });
+    }
+
+    function animateCounter(el) {
+        var target   = parseInt(el.getAttribute('data-counter'), 10);
+        var duration = 2000;
+        var start    = performance.now();
+        function step(now) {
+            var elapsed  = now - start;
+            var progress = Math.min(elapsed / duration, 1);
+            var ease     = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(ease * target).toLocaleString('pt-BR');
+            if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    // ─── FILTRO PROJETOS ────────────────────────────────────────
+    var filtros  = document.querySelectorAll('.filtro-btn');
+    var projetos = document.querySelectorAll('.projeto-card');
+
+    filtros.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var filter = this.getAttribute('data-filter');
+            filtros.forEach(function (b) { b.classList.remove('active'); });
+            this.classList.add('active');
+
+            projetos.forEach(function (card) {
+                if (filter === '*' || card.getAttribute('data-tipo') === filter) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // ─── FORMULÁRIO DE CONTATO ───────────────────────────────────
+    var formContato = document.getElementById('form-contato');
+    if (formContato) {
+        formContato.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var btn       = document.getElementById('btn-contato');
+            var msgEl     = document.getElementById('contato-msg');
+            var btnText   = btn.querySelector('.btn-text');
+            var btnLoad   = btn.querySelector('.btn-loading');
+
+            btnText.hidden = true;
+            btnLoad.hidden = false;
+            btn.disabled   = true;
+
+            var data = new FormData(formContato);
+            data.append('action', 'tiguen_contato');
+            data.append('nonce', tiguenData.contatoNonce);
+
+            fetch(tiguenData.ajaxUrl, { method: 'POST', body: data })
+                .then(function (r) { return r.json(); })
+                .then(function (res) {
+                    msgEl.hidden    = false;
+                    msgEl.className = 'form-feedback ' + (res.success ? 'success' : 'error');
+                    msgEl.textContent = res.data.message;
+                    if (res.success) formContato.reset();
+                })
+                .catch(function () {
+                    msgEl.hidden    = false;
+                    msgEl.className = 'form-feedback error';
+                    msgEl.textContent = 'Erro de conexão. Tente novamente.';
+                })
+                .finally(function () {
+                    btnText.hidden = false;
+                    btnLoad.hidden = true;
+                    btn.disabled   = false;
+                });
+        });
+    }
+
+    // ─── FORMULÁRIO DE CURRÍCULO ─────────────────────────────────
+    var formCurriculo = document.getElementById('form-curriculo');
+    if (formCurriculo) {
+        formCurriculo.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var btn     = document.getElementById('btn-curriculo');
+            var msgEl   = document.getElementById('curriculo-msg');
+            var btnText = btn.querySelector('.btn-text');
+            var btnLoad = btn.querySelector('.btn-loading');
+
+            btnText.hidden = true;
+            btnLoad.hidden = false;
+            btn.disabled   = true;
+
+            var data = new FormData(formCurriculo);
+            data.append('action', 'tiguen_curriculo');
+            data.append('nonce', tiguenData.curriculoNonce);
+
+            fetch(tiguenData.ajaxUrl, { method: 'POST', body: data })
+                .then(function (r) { return r.json(); })
+                .then(function (res) {
+                    msgEl.hidden    = false;
+                    msgEl.className = 'form-feedback ' + (res.success ? 'success' : 'error');
+                    msgEl.textContent = res.data.message;
+                    if (res.success) formCurriculo.reset();
+                })
+                .catch(function () {
+                    msgEl.hidden    = false;
+                    msgEl.className = 'form-feedback error';
+                    msgEl.textContent = 'Erro de conexão. Tente novamente.';
+                })
+                .finally(function () {
+                    btnText.hidden = false;
+                    btnLoad.hidden = true;
+                    btn.disabled   = false;
+                });
+        });
+    }
+
 });
