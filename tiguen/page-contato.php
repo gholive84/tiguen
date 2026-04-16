@@ -155,7 +155,7 @@ get_header(); ?>
 <!-- MAPA -->
 <div class="mapa-wrapper">
     <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3601.7!2d-49.2!3d-25.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sRua+Cel.+Luis+Victorino+Ordine%2C+1802%2C+S%C3%A3o+Jos%C3%A9+dos+Pinhais!5e0!3m2!1spt-BR!2sbr!4v1"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3600!2d-49.20500!3d-25.57800!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce4b2e1e1e1e1%3A0x0!2sRua+Cel.+Luis+Victorino+Ordine%2C+1802+-+S%C3%A3o+Pedro%2C+S%C3%A3o+Jos%C3%A9+dos+Pinhais+-+PR%2C+83005-040!5e0!3m2!1spt-BR!2sbr!4v1"
         width="100%" height="400" style="border:0;" allowfullscreen loading="lazy"
         title="Localização Tiguen Engenharia"></iframe>
 </div>
