@@ -165,13 +165,12 @@ function tiguen_media_import_page() {
                             $ext      = strtolower(pathinfo($file, PATHINFO_EXTENSION));
                             $is_image = in_array($ext, ['jpg','jpeg','png','gif','webp'], true);
                         ?>
-                            <tr style="<?php echo $imported ? 'opacity:.5;' : ''; ?>">
+                            <tr>
                                 <td>
                                     <input type="checkbox" name="import_files[]"
                                            value="<?php echo esc_attr($file); ?>"
                                            class="img-check"
-                                           <?php checked(!$imported); ?>
-                                           <?php disabled($imported); ?>>
+                                           <?php checked(!$imported); ?>>
                                 </td>
                                 <td style="width:80px;">
                                     <?php if ( $is_image ) : ?>
@@ -185,6 +184,7 @@ function tiguen_media_import_page() {
                                 <td>
                                     <?php if ( $imported ) : ?>
                                         <span style="color:#166534;font-weight:600;">✅ Já importado</span>
+                                        <span style="color:#555;font-size:.8rem;display:block;">Selecione + marque "Forçar" para substituir</span>
                                     <?php else : ?>
                                         <span style="color:#92400E;">Pendente</span>
                                     <?php endif; ?>
