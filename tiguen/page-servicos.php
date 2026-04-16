@@ -25,59 +25,71 @@ get_header(); ?>
         <div class="servicos-full-grid">
 
             <div class="servico-full-card">
-                <div class="servico-full-card__icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/servico-arquitetura.jpg' ); ?>" alt="Arquitetura" class="servico-full-card__img" loading="lazy">
+                <div class="servico-full-card__body">
+                    <div class="servico-full-card__icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    </div>
+                    <h3>Arquitetura</h3>
+                    <p>Projetamos espaços únicos com funcionalidade e estética, do conceito ao detalhamento executivo, alinhados às necessidades e ao perfil de cada cliente.</p>
+                    <ul>
+                        <li>Projetos arquitetônicos residenciais e comerciais</li>
+                        <li>Plantas, cortes, fachadas e detalhamentos</li>
+                        <li>Aprovação em prefeitura e CREA</li>
+                        <li>Compatibilização com projetos complementares</li>
+                    </ul>
                 </div>
-                <h3>Arquitetura</h3>
-                <p>Projetamos espaços únicos com funcionalidade e estética, do conceito ao detalhamento executivo, alinhados às necessidades e ao perfil de cada cliente.</p>
-                <ul>
-                    <li>Projetos arquitetônicos residenciais e comerciais</li>
-                    <li>Plantas, cortes, fachadas e detalhamentos</li>
-                    <li>Aprovação em prefeitura e CREA</li>
-                    <li>Compatibilização com projetos complementares</li>
-                </ul>
             </div>
 
             <div class="servico-full-card">
-                <div class="servico-full-card__icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/servico-inovacao.jpg' ); ?>" alt="Inovação e Planejamento" class="servico-full-card__img" loading="lazy">
+                <div class="servico-full-card__body">
+                    <div class="servico-full-card__icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <h3>Inovação e Planejamento</h3>
+                    <p>Utilizamos ferramentas tecnológicas de última geração para criar, planejar e gerenciar seu projeto do início ao fim com precisão e eficiência.</p>
+                    <ul>
+                        <li>Modelagem BIM e projetos 3D</li>
+                        <li>Cronograma físico-financeiro detalhado</li>
+                        <li>Gestão integrada de obra</li>
+                        <li>Relatórios periódicos de acompanhamento</li>
+                    </ul>
                 </div>
-                <h3>Inovação e Planejamento</h3>
-                <p>Utilizamos ferramentas tecnológicas de última geração para criar, planejar e gerenciar seu projeto do início ao fim com precisão e eficiência.</p>
-                <ul>
-                    <li>Modelagem BIM e projetos 3D</li>
-                    <li>Cronograma físico-financeiro detalhado</li>
-                    <li>Gestão integrada de obra</li>
-                    <li>Relatórios periódicos de acompanhamento</li>
-                </ul>
             </div>
 
             <div class="servico-full-card">
-                <div class="servico-full-card__icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/servico-reformas.jpg' ); ?>" alt="Reformas" class="servico-full-card__img" loading="lazy">
+                <div class="servico-full-card__body">
+                    <div class="servico-full-card__icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </div>
+                    <h3>Reformas</h3>
+                    <p>Reformas residenciais e comerciais planejadas com rigor técnico, mínima interferência na rotina e resultado que valoriza seu imóvel.</p>
+                    <ul>
+                        <li>Reformas completas e parciais</li>
+                        <li>Ampliações e acréscimos</li>
+                        <li>Retrofit e requalificação de ambientes</li>
+                        <li>Impermeabilização e revestimentos</li>
+                    </ul>
                 </div>
-                <h3>Reformas</h3>
-                <p>Reformas residenciais e comerciais planejadas com rigor técnico, mínima interferência na rotina e resultado que valoriza seu imóvel.</p>
-                <ul>
-                    <li>Reformas completas e parciais</li>
-                    <li>Ampliações e acréscimos</li>
-                    <li>Retrofit e requalificação de ambientes</li>
-                    <li>Impermeabilização e revestimentos</li>
-                </ul>
             </div>
 
             <div class="servico-full-card">
-                <div class="servico-full-card__icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M6 20V10m6 10V4m6 16V14"/></svg>
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/servico-empreendimentos.jpg' ); ?>" alt="Empreendimentos" class="servico-full-card__img" loading="lazy">
+                <div class="servico-full-card__body">
+                    <div class="servico-full-card__icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M6 20V10m6 10V4m6 16V14"/></svg>
+                    </div>
+                    <h3>Empreendimentos</h3>
+                    <p>Desenvolvemos empreendimentos residenciais e comerciais do projeto à entrega, com controle total de qualidade e foco na valorização do produto final.</p>
+                    <ul>
+                        <li>Condomínios residenciais e loteamentos</li>
+                        <li>Edifícios comerciais e mistos</li>
+                        <li>Acompanhamento técnico em todas as fases</li>
+                        <li>Gestão de fornecedores e equipes especializadas</li>
+                    </ul>
                 </div>
-                <h3>Empreendimentos</h3>
-                <p>Desenvolvemos empreendimentos residenciais e comerciais do projeto à entrega, com controle total de qualidade e foco na valorização do produto final.</p>
-                <ul>
-                    <li>Condomínios residenciais e loteamentos</li>
-                    <li>Edifícios comerciais e mistos</li>
-                    <li>Acompanhamento técnico em todas as fases</li>
-                    <li>Gestão de fornecedores e equipes especializadas</li>
-                </ul>
             </div>
 
         </div>
