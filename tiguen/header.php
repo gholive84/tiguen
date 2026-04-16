@@ -24,9 +24,10 @@
 
         <nav id="site-navigation" class="main-navigation" aria-label="Menu principal">
             <?php wp_nav_menu([
-                'theme_location' => 'primary',
-                'menu_id'        => 'primary-menu',
-                'container'      => false,
+                'menu'        => 'principal',
+                'menu_id'     => 'primary-menu',
+                'container'   => false,
+                'fallback_cb' => false,
             ]); ?>
         </nav>
 
