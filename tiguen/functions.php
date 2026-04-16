@@ -7,6 +7,7 @@
 require_once get_template_directory() . '/inc/post-types.php';
 require_once get_template_directory() . '/inc/ajax-handlers.php';
 require_once get_template_directory() . '/inc/media-import.php';
+require_once get_template_directory() . '/inc/content-seeder.php';
 require_once get_template_directory() . '/inc/acf-fields.php';
 
 // Meta boxes nativos só carregam se ACF não estiver ativo
