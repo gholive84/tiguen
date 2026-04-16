@@ -5,9 +5,14 @@
 
 // Includes
 require_once get_template_directory() . '/inc/post-types.php';
-require_once get_template_directory() . '/inc/meta-boxes.php';
 require_once get_template_directory() . '/inc/ajax-handlers.php';
 require_once get_template_directory() . '/inc/media-import.php';
+require_once get_template_directory() . '/inc/acf-fields.php';
+
+// Meta boxes nativos só carregam se ACF não estiver ativo
+if ( ! function_exists('acf_add_local_field_group') ) {
+    require_once get_template_directory() . '/inc/meta-boxes.php';
+}
 
 // Setup do tema
 function tiguen_setup() {

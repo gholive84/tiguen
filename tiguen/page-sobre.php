@@ -87,8 +87,8 @@ get_header(); ?>
             if ( $equipe->have_posts() ) :
                 while ( $equipe->have_posts() ) :
                     $equipe->the_post();
-                    $cargo    = get_post_meta( get_the_ID(), '_equipe_cargo', true );
-                    $linkedin = get_post_meta( get_the_ID(), '_equipe_linkedin', true );
+                    $cargo    = function_exists('get_field') ? get_field('cargo')    : get_post_meta( get_the_ID(), '_equipe_cargo', true );
+                    $linkedin = function_exists('get_field') ? get_field('linkedin') : get_post_meta( get_the_ID(), '_equipe_linkedin', true );
                     ?>
                     <div class="team-card">
                         <?php if ( has_post_thumbnail() ) : ?>

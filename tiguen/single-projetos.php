@@ -7,11 +7,11 @@ get_header();
 while ( have_posts() ) :
     the_post();
 
-    $area        = get_post_meta( get_the_ID(), '_projeto_area', true );
-    $ano         = get_post_meta( get_the_ID(), '_projeto_ano', true );
-    $localizacao = get_post_meta( get_the_ID(), '_projeto_localizacao', true );
-    $galeria_ids = get_post_meta( get_the_ID(), '_projeto_galeria', true );
-    $video_url   = get_post_meta( get_the_ID(), '_projeto_video_url', true );
+    $area        = function_exists('get_field') ? get_field('area')        : get_post_meta( get_the_ID(), '_projeto_area', true );
+    $ano         = function_exists('get_field') ? get_field('ano')         : get_post_meta( get_the_ID(), '_projeto_ano', true );
+    $localizacao = function_exists('get_field') ? get_field('localizacao') : get_post_meta( get_the_ID(), '_projeto_localizacao', true );
+    $video_url   = function_exists('get_field') ? get_field('video_url')   : get_post_meta( get_the_ID(), '_projeto_video_url', true );
+    $galeria     = function_exists('get_field') ? get_field('galeria')     : [];
     $tipos       = get_the_terms( get_the_ID(), 'tipo_obra' );
 ?>
 
@@ -49,27 +49,23 @@ while ( have_posts() ) :
             </div>
         </div>
 
-        <!-- GALERIA -->
-        <?php if ( $galeria_ids ) :
-            $ids = array_filter( array_map( 'intval', explode( ',', $galeria_ids ) ) );
-            if ( ! empty( $ids ) ) : ?>
-                <div class="projeto-galeria">
-                    <h2>Galeria de Fotos</h2>
-                    <div class="galeria-grid" id="projeto-galeria">
-                        <?php foreach ( $ids as $img_id ) :
-                            $img_url  = wp_get_attachment_image_url( $img_id, 'projeto-galeria' );
-                            $img_full = wp_get_attachment_image_url( $img_id, 'full' );
-                            $img_alt  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
-                            if ( ! $img_url ) continue;
-                        ?>
-                            <a href="<?php echo esc_url( $img_full ); ?>" class="galeria-item" data-lightbox="projeto">
-                                <img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $img_alt ); ?>" loading="lazy">
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
+        <!-- GALERIA (ACF Gallery) -->
+        <?php if ( ! empty( $galeria ) ) : ?>
+            <div class="projeto-galeria">
+                <h2>Galeria de Fotos</h2>
+                <div class="galeria-grid" id="projeto-galeria">
+                    <?php foreach ( $galeria as $img ) :
+                        $img_url  = $img['sizes']['projeto-galeria'] ?? $img['url'];
+                        $img_full = $img['url'];
+                        $img_alt  = $img['alt'];
+                    ?>
+                        <a href="<?php echo esc_url( $img_full ); ?>" class="galeria-item" data-lightbox="projeto">
+                            <img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $img_alt ); ?>" loading="lazy">
+                        </a>
+                    <?php endforeach; ?>
                 </div>
-            <?php endif;
-        endif; ?>
+            </div>
+        <?php endif; ?>
 
         <!-- VÍDEO -->
         <?php $embed = tiguen_get_video_embed( $video_url );
