@@ -28,6 +28,7 @@ function tiguen_media_import_page() {
     if ( isset($_POST['tiguen_import_nonce']) && wp_verify_nonce($_POST['tiguen_import_nonce'], 'tiguen_import') ) {
 
         $selected = $_POST['import_files'] ?? [];
+        $force    = ! empty( $_POST['force_reimport'] );
 
         if ( empty($selected) ) {
             $results[] = [ 'status' => 'error', 'msg' => 'Nenhuma imagem selecionada.' ];
@@ -45,7 +46,7 @@ function tiguen_media_import_page() {
                     continue;
                 }
 
-                // Verifica se já foi importado (evita duplicatas)
+                // Verifica se já foi importado
                 $existing = get_posts([
                     'post_type'  => 'attachment',
                     'meta_key'   => '_tiguen_source_file',
@@ -53,9 +54,15 @@ function tiguen_media_import_page() {
                     'numberposts'=> 1,
                 ]);
 
-                if ( $existing ) {
-                    $results[] = [ 'status' => 'skip', 'msg' => "{$filename}: já importado (ID {$existing[0]->ID})." ];
+                if ( $existing && ! $force ) {
+                    $results[] = [ 'status' => 'skip', 'msg' => "{$filename}: já importado (ID {$existing[0]->ID}). Use 'Forçar' para substituir." ];
                     continue;
+                }
+
+                // Forçar: apaga o attachment anterior e reimporta
+                if ( $existing && $force ) {
+                    wp_delete_attachment( $existing[0]->ID, true );
+                    $results[] = [ 'status' => 'info', 'msg' => "{$filename}: attachment anterior removido, reimportando..." ];
                 }
 
                 // Copia para upload temporário
@@ -187,10 +194,14 @@ function tiguen_media_import_page() {
                     </tbody>
                 </table>
 
-                <p style="margin-top:16px;">
+                <p style="margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
                     <button type="submit" class="button button-primary button-large">
                         ⬆️ Importar selecionadas para a Mídia
                     </button>
+                    <label style="display:flex;align-items:center;gap:6px;font-size:.9rem;color:#555;cursor:pointer;">
+                        <input type="checkbox" name="force_reimport" value="1">
+                        <strong>Forçar re-importação</strong> (substitui imagens já importadas)
+                    </label>
                 </p>
             </form>
 
