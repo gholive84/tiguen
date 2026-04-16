@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var cards      = carousel.querySelectorAll('.review-card');
         var prevBtn    = document.querySelector('.reviews-prev');
         var nextBtn    = document.querySelector('.reviews-next');
-        var perView    = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 640 ? 2 : 1;
+        var perView    = window.innerWidth >= 769 ? 3 : window.innerWidth >= 481 ? 2 : 1;
         var total      = cards.length;
         var maxIdx     = total - perView;
         var current    = 0;
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, {passive:true});
 
         window.addEventListener('resize', function(){
-            perView = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 640 ? 2 : 1;
+            perView = window.innerWidth >= 769 ? 3 : window.innerWidth >= 481 ? 2 : 1;
             maxIdx  = total - perView;
             goTo(Math.min(current, maxIdx));
         });
