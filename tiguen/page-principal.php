@@ -118,12 +118,12 @@ $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full'
                 wp_reset_postdata();
             else :
                 $items = [
-                    ['icon' => 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z',                           'titulo' => 'Construção Residencial',   'texto' => 'Casas e edifícios do projeto à entrega, com qualidade e atenção ao detalhe.'],
-                    ['icon' => 'M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z', 'titulo' => 'Construção Comercial',    'texto' => 'Projetos corporativos e comerciais com soluções sob medida para cada negócio.'],
-                    ['icon' => 'M2 20h20M6 20V10m6 10V4m6 16V14',                                            'titulo' => 'Obras Institucionais',    'texto' => 'Escolas, creches e unidades de saúde com excelência técnica.'],
-                    ['icon' => 'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z', 'titulo' => 'Reformas',                'texto' => 'Reformas planejadas com mínimo impacto, máxima eficiência.'],
-                    ['icon' => 'M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 0 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 0-2-2V9m0 0h18', 'titulo' => 'Inovação e Planejamento', 'texto' => 'Gestão e tecnologia para garantir precisão no orçamento e prazo.'],
-                    ['icon' => 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',                               'titulo' => 'Arquitetura',             'texto' => 'Projetos arquitetônicos únicos alinhados às suas necessidades.'],
+                    ['icon' => 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z',                           'titulo' => 'Construção Residencial',    'texto' => 'Casas e edifícios do projeto à entrega, com qualidade e atenção ao detalhe.'],
+                    ['icon' => 'M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z', 'titulo' => 'Construção Comercial',     'texto' => 'Projetos corporativos e comerciais com soluções sob medida para cada negócio.'],
+                    ['icon' => 'M2 20h20M6 20V10m6 10V4m6 16V14',                                            'titulo' => 'Construção Institucional',  'texto' => 'Escolas, clínicas e prédios públicos com excelência técnica e normas rigorosas.'],
+                    ['icon' => 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z',               'titulo' => 'Projetos de Engenharia',    'texto' => 'Projetos técnicos completos com precisão, aprovação e compatibilização.'],
+                    ['icon' => 'M3 21h18M5 21V7l8-4v18M19 21V11l-6-4',                                       'titulo' => 'Reformas e Ampliações',     'texto' => 'Reformas planejadas com mínimo impacto, máxima eficiência e resultado.'],
+                    ['icon' => 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',                               'titulo' => 'Gerenciamento de Obras',    'texto' => 'Controle de cronograma, custos e qualidade do início ao fim da obra.'],
                 ];
                 foreach ( $items as $item ) : ?>
                     <div class="home-servico-card" data-animate>
