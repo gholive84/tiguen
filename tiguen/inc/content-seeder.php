@@ -40,8 +40,10 @@ function tiguen_seeder_page() {
             $results = tiguen_seed_projetos();
         } elseif ( $tipo === 'equipe' ) {
             $results = tiguen_seed_equipe();
+        } elseif ( $tipo === 'blog' ) {
+            $results = tiguen_seed_blog();
         } elseif ( $tipo === 'all' ) {
-            $results = array_merge( tiguen_seed_projetos(), tiguen_seed_equipe() );
+            $results = array_merge( tiguen_seed_projetos(), tiguen_seed_equipe(), tiguen_seed_blog() );
         }
     }
 
@@ -53,10 +55,13 @@ function tiguen_seeder_page() {
         'projeto-comercial.jpg'    => 'Projeto Comercial',
         'projeto-institucional.jpg'=> 'Projeto Institucional',
         'projeto-obra-civil.jpg'   => 'Projeto Obra Civil',
-        'sobre-equipe.jpg'         => 'Sobre — Equipe',
-        'equipe-engenheiro-01.jpg' => 'Engenheiro 01',
-        'equipe-arquiteta-02.jpg'  => 'Arquiteta 02',
-        'equipe-engenheiro-03.jpg' => 'Engenheiro 03',
+        'sobre-equipe.jpg'          => 'Sobre — Equipe',
+        'equipe-engenheiro-01.jpg'  => 'Engenheiro 01',
+        'equipe-arquiteta-02.jpg'   => 'Arquiteta 02',
+        'equipe-engenheiro-03.jpg'  => 'Engenheiro 03',
+        'blog-reforma-interior.jpg' => 'Blog — Reforma Interior',
+        'blog-construcao-civil.jpg' => 'Blog — Construção Civil',
+        'blog-engenharia-projeto.jpg'=> 'Blog — Engenharia Projeto',
     ];
 
     ?>
@@ -113,6 +118,9 @@ function tiguen_seeder_page() {
             </button>
             <button type="submit" name="seed_tipo" value="equipe" class="button button-primary button-large">
                 👥 Criar Equipe de Exemplo
+            </button>
+            <button type="submit" name="seed_tipo" value="blog" class="button button-primary button-large">
+                📝 Criar Posts de Blog
             </button>
             <button type="submit" name="seed_tipo" value="all" class="button button-large" style="background:#0E1B2C;color:#fff;border-color:#0E1B2C;">
                 ⚡ Criar Tudo
@@ -307,6 +315,84 @@ function tiguen_seed_equipe() {
         $results[] = [
             'status' => 'created',
             'msg'    => "Membro '{$m['nome']}' criado" . ($img_id ? ' com foto' : ' (importe a imagem primeiro)'),
+            'url'    => get_edit_post_link($post_id),
+        ];
+    }
+
+    return $results;
+}
+
+// ─── SEED: BLOG ──────────────────────────────────────────────────────────────
+
+function tiguen_seed_blog() {
+    $results = [];
+
+    if ( ! term_exists('Construção Civil', 'category') ) {
+        wp_insert_term('Construção Civil', 'category', ['slug' => 'construcao-civil']);
+    }
+    if ( ! term_exists('Dicas e Planejamento', 'category') ) {
+        wp_insert_term('Dicas e Planejamento', 'category', ['slug' => 'dicas-planejamento']);
+    }
+
+    $posts = [
+        [
+            'titulo'   => 'Como planejar a reforma da sua casa sem surpresas no orçamento',
+            'excerpt'  => 'Reformar pode ser mais tranquilo do que parece. Descubra como planejar cada etapa e evitar os erros mais comuns que encarecem as obras.',
+            'content'  => '<p>Uma das maiores preocupações de quem decide reformar a casa é a falta de controle sobre o orçamento. Com planejamento, é possível evitar a maior parte dessas surpresas.</p><h2>1. Levantamento completo antes de começar</h2><p>Antes de qualquer trabalho, contrate um engenheiro para realizar uma vistoria completa do imóvel. Problemas elétricos, hidráulicos ou estruturais não identificados no início são a principal causa de estouro de orçamento em reformas.</p><h2>2. Projeto detalhado e especificações claras</h2><p>Um projeto bem elaborado define exatamente o que será executado, quais materiais serão utilizados e qual é a sequência de trabalho. Com isso, o orçamento fica muito mais preciso e os imprevistos são minimizados.</p><h2>3. Reserve uma margem para imprevistos</h2><p>Mesmo com o melhor planejamento, obras sempre apresentam algum imprevisto. O ideal é reservar entre 10% e 15% do valor total como fundo de contingência.</p><h2>4. Contrate profissionais qualificados</h2><p>O preço mais baixo nem sempre é a melhor escolha. Profissionais sem qualificação geram retrabalho, atrasos e custos adicionais que superam qualquer economia inicial.</p>',
+            'category' => 'dicas-planejamento',
+            'imagem'   => 'blog-reforma-interior.jpg',
+            'data'     => '2024-03-15',
+        ],
+        [
+            'titulo'   => 'Construção civil em 2024: tendências que estão transformando as obras',
+            'excerpt'  => 'Da sustentabilidade ao uso de tecnologia BIM, saiba quais são as principais inovações que chegaram ao mercado da construção civil.',
+            'content'  => '<p>O setor de construção civil passou por uma transformação significativa nos últimos anos. Novas tecnologias, práticas sustentáveis e metodologias de gestão estão mudando a forma como as obras são planejadas e executadas.</p><h2>Tecnologia BIM</h2><p>O BIM permite criar um modelo digital completo da edificação antes mesmo de iniciar a obra. Isso possibilita identificar conflitos entre projetos, simular o comportamento estrutural e prever com precisão os custos de execução.</p><h2>Construção sustentável</h2><p>O mercado exige cada vez mais obras com menor impacto ambiental. Isso inclui uso de materiais reciclados, sistemas de captação de água da chuva, painéis solares e isolamento térmico eficiente.</p><h2>Industrialização e pré-fabricados</h2><p>Estruturas metálicas e painéis pré-fabricados reduzem o tempo de obra em até 40% e garantem maior controle de qualidade.</p>',
+            'category' => 'construcao-civil',
+            'imagem'   => 'blog-construcao-civil.jpg',
+            'data'     => '2024-02-20',
+        ],
+        [
+            'titulo'   => 'Por que contratar uma empresa de engenharia para sua obra?',
+            'excerpt'  => 'Muitos optam por contratar diretamente pedreiros e mestres de obras. Entenda por que contar com uma empresa de engenharia pode ser mais econômico a longo prazo.',
+            'content'  => '<p>Quando o assunto é construção ou reforma, a decisão de contratar ou não uma empresa de engenharia pode fazer toda a diferença no resultado final.</p><h2>Responsabilidade técnica e legal</h2><p>Toda obra necessita de um responsável técnico habilitado pelo CREA. Uma empresa de engenharia assume a responsabilidade técnica pela obra, protegendo o proprietário juridicamente e garantindo que as normas técnicas sejam seguidas.</p><h2>Planejamento e controle de custos</h2><p>Com um engenheiro responsável, a obra tem projeto executivo, cronograma detalhado e orçamento preciso. Isso evita o "efeito bola de neve", onde pequenos problemas se transformam em grandes despesas.</p><h2>Cumprimento de prazos</h2><p>A gestão profissional garante que as equipes trabalhem de forma coordenada, os materiais cheguem no tempo certo e o cronograma seja respeitado.</p>',
+            'category' => 'dicas-planejamento',
+            'imagem'   => 'blog-engenharia-projeto.jpg',
+            'data'     => '2024-01-10',
+        ],
+    ];
+
+    foreach ( $posts as $p ) {
+
+        $existing = get_posts(['post_type' => 'post', 'title' => $p['titulo'], 'numberposts' => 1]);
+        if ( $existing ) {
+            $results[] = [ 'status' => 'skip', 'msg' => "Post '{$p['titulo']}': já existe." ];
+            continue;
+        }
+
+        $cat    = get_term_by('slug', $p['category'], 'category');
+        $cat_id = $cat ? [ $cat->term_id ] : [];
+
+        $post_id = wp_insert_post([
+            'post_title'    => $p['titulo'],
+            'post_excerpt'  => $p['excerpt'],
+            'post_content'  => $p['content'],
+            'post_type'     => 'post',
+            'post_status'   => 'publish',
+            'post_category' => $cat_id,
+            'post_date'     => $p['data'] . ' 09:00:00',
+        ]);
+
+        if ( is_wp_error($post_id) ) {
+            $results[] = [ 'status' => 'error', 'msg' => "Erro: " . $post_id->get_error_message() ];
+            continue;
+        }
+
+        $img_id = tiguen_get_attachment_by_filename( $p['imagem'] );
+        if ( $img_id ) set_post_thumbnail( $post_id, $img_id );
+
+        $results[] = [
+            'status' => 'created',
+            'msg'    => "Post '{$p['titulo']}' criado" . ($img_id ? ' com imagem' : ' (importe a imagem primeiro)'),
             'url'    => get_edit_post_link($post_id),
         ];
     }

@@ -8,14 +8,26 @@ get_header(); ?>
 <!-- ═══════════════════════════════════════════════════════════
      HERO
 ════════════════════════════════════════════════════════════ -->
+<?php
+// Imagem do hero: destaque da página OU fallback para hero-obra.jpg na Mídia
+$page_id      = get_queried_object_id();
+$hero_img_id  = get_post_thumbnail_id( $page_id );
+if ( ! $hero_img_id ) {
+    $fallback = get_posts([
+        'post_type'   => 'attachment',
+        'meta_key'    => '_tiguen_source_file',
+        'meta_value'  => 'hero-obra.jpg',
+        'numberposts' => 1,
+    ]);
+    $hero_img_id = $fallback ? $fallback[0]->ID : 0;
+}
+$hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full' ) : '';
+?>
 <section class="hero">
     <div class="hero__bg">
-        <?php
-        // Imagem de fundo — definida como destaque da página "principal"
-        if ( has_post_thumbnail() ) :
-            the_post_thumbnail( 'full', [ 'class' => 'hero__bg-img', 'loading' => 'eager' ] );
-        endif;
-        ?>
+        <?php if ( $hero_img_url ) : ?>
+            <img src="<?php echo esc_url( $hero_img_url ); ?>" alt="Tiguen Engenharia — obra" class="hero__bg-img" loading="eager">
+        <?php endif; ?>
     </div>
     <div class="hero__overlay"></div>
     <div class="container hero__content">
@@ -152,17 +164,33 @@ get_header(); ?>
         </div>
         <div class="sobre-strip__image" data-animate>
             <?php
-            // Tenta pegar imagem da página "sobre" ou usa placeholder
-            $sobre_page = get_page_by_path('sobre');
-            if ( $sobre_page && has_post_thumbnail($sobre_page->ID) ) {
-                echo get_the_post_thumbnail($sobre_page->ID, 'large', ['class' => 'sobre-img', 'loading' => 'lazy']);
-            } else { ?>
+            // 1. Destaque da página "sobre"
+            $sobre_page   = get_page_by_path('sobre');
+            $sobre_img_id = $sobre_page ? get_post_thumbnail_id($sobre_page->ID) : 0;
+
+            // 2. Fallback: sobre-equipe.jpg na Mídia
+            if ( ! $sobre_img_id ) {
+                $fallback_sobre = get_posts([
+                    'post_type'   => 'attachment',
+                    'meta_key'    => '_tiguen_source_file',
+                    'meta_value'  => 'sobre-equipe.jpg',
+                    'numberposts' => 1,
+                ]);
+                $sobre_img_id = $fallback_sobre ? $fallback_sobre[0]->ID : 0;
+            }
+
+            if ( $sobre_img_id ) :
+                $sobre_img_url = wp_get_attachment_image_url($sobre_img_id, 'large');
+                $sobre_img_alt = get_post_meta($sobre_img_id, '_wp_attachment_image_alt', true) ?: 'Equipe Tiguen';
+            ?>
+                <img src="<?php echo esc_url($sobre_img_url); ?>" alt="<?php echo esc_attr($sobre_img_alt); ?>" class="sobre-img" loading="lazy">
+            <?php else : ?>
                 <div class="sobre-img sobre-img--placeholder">
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(27,79,138,0.25)" stroke-width="1">
                         <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
                     </svg>
                 </div>
-            <?php } ?>
+            <?php endif; ?>
         </div>
     </div>
 </section>
