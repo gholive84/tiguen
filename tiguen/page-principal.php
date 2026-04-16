@@ -380,6 +380,34 @@ $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full'
                             'data'   => 'julho de 2024',
                             'texto'  => 'Contratei para ampliação da minha empresa e o serviço superou as expectativas. Engenheiros muito capacitados, sempre disponíveis para esclarecer dúvidas.',
                         ],
+                        [
+                            'nome'   => 'Ana Paula R.',
+                            'avatar' => 'A',
+                            'nota'   => 5,
+                            'data'   => 'maio de 2024',
+                            'texto'  => 'Muito profissionais e atenciosos. Desde o primeiro contato até a entrega final, tudo foi tratado com muita transparência e cuidado. Recomendo sem hesitar!',
+                        ],
+                        [
+                            'nome'   => 'Gustavo Ferreira',
+                            'avatar' => 'G',
+                            'nota'   => 5,
+                            'data'   => 'abril de 2024',
+                            'texto'  => 'Fizemos a construção do nosso escritório com a Tiguen e ficamos muito satisfeitos. Prazo cumprido, acabamento perfeito e equipe sempre disponível para atender.',
+                        ],
+                        [
+                            'nome'   => 'Juliana Martins',
+                            'avatar' => 'J',
+                            'nota'   => 5,
+                            'data'   => 'fevereiro de 2024',
+                            'texto'  => 'Empresa séria, comprometida e com ótimo atendimento. A reforma ficou exatamente como planejamos. Já indiquei para vários amigos!',
+                        ],
+                        [
+                            'nome'   => 'Ricardo Borges',
+                            'avatar' => 'R',
+                            'nota'   => 5,
+                            'data'   => 'dezembro de 2023',
+                            'texto'  => 'Contratei para reforma completa do apartamento e o resultado foi incrível. Equipe competente, organizada e muito cuidadosa com os detalhes.',
+                        ],
                     ];
                 }
 

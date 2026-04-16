@@ -70,35 +70,49 @@ document.addEventListener('DOMContentLoaded', function () {
     var carousel = document.getElementById('reviews-carousel');
     var dotsWrap = document.getElementById('reviews-dots');
     if (carousel) {
-        var cards      = carousel.querySelectorAll('.review-card');
-        var prevBtn    = document.querySelector('.reviews-prev');
-        var nextBtn    = document.querySelector('.reviews-next');
-        var perView    = window.innerWidth >= 769 ? 3 : window.innerWidth >= 481 ? 2 : 1;
-        var total      = cards.length;
-        var maxIdx     = total - perView;
-        var current    = 0;
+        var cards   = carousel.querySelectorAll('.review-card');
+        var prevBtn = document.querySelector('.reviews-prev');
+        var nextBtn = document.querySelector('.reviews-next');
+        var total   = cards.length;
+        var current = 0; // página atual
         var autoTimer;
 
-        // Criar dots
-        for (var d = 0; d <= maxIdx; d++) {
-            var dot = document.createElement('button');
-            dot.className = 'reviews-dot' + (d === 0 ? ' active' : '');
-            dot.setAttribute('aria-label', 'Ir para avaliação ' + (d + 1));
-            (function(idx){ dot.addEventListener('click', function(){ goTo(idx); }); })(d);
-            dotsWrap.appendChild(dot);
+        function getPerView() {
+            return window.innerWidth >= 769 ? 3 : window.innerWidth >= 481 ? 2 : 1;
+        }
+        function getPages(pv) { return Math.ceil(total / pv); }
+
+        function buildDots(pages) {
+            dotsWrap.innerHTML = '';
+            for (var d = 0; d < pages; d++) {
+                var dot = document.createElement('button');
+                dot.className = 'reviews-dot' + (d === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', 'Página ' + (d + 1));
+                (function(idx){ dot.addEventListener('click', function(){ goTo(idx); }); })(d);
+                dotsWrap.appendChild(dot);
+            }
         }
 
-        function goTo(idx) {
-            current = Math.max(0, Math.min(idx, maxIdx));
-            var cardW = cards[0].offsetWidth + 24;
-            carousel.style.transform = 'translateX(-' + (current * cardW) + 'px)';
+        function goTo(pageIdx) {
+            var pv    = getPerView();
+            var pages = getPages(pv);
+            current   = Math.max(0, Math.min(pageIdx, pages - 1));
+            // índice do primeiro card da página, não ultrapassa o fim
+            var cardIdx = Math.min(current * pv, total - pv);
+            var cardW   = cards[0].offsetWidth + 24;
+            carousel.style.transform = 'translateX(-' + (cardIdx * cardW) + 'px)';
             dotsWrap.querySelectorAll('.reviews-dot').forEach(function(d, i) {
                 d.classList.toggle('active', i === current);
             });
         }
 
-        function startAuto() { autoTimer = setInterval(function(){ goTo(current >= maxIdx ? 0 : current + 1); }, 5000); }
-        function stopAuto()  { clearInterval(autoTimer); }
+        function startAuto() {
+            var pages = getPages(getPerView());
+            autoTimer = setInterval(function(){ goTo(current >= pages - 1 ? 0 : current + 1); }, 5000);
+        }
+        function stopAuto() { clearInterval(autoTimer); }
+
+        buildDots(getPages(getPerView()));
 
         if (prevBtn) prevBtn.addEventListener('click', function(){ stopAuto(); goTo(current - 1); startAuto(); });
         if (nextBtn) nextBtn.addEventListener('click', function(){ stopAuto(); goTo(current + 1); startAuto(); });
@@ -111,13 +125,12 @@ document.addEventListener('DOMContentLoaded', function () {
         carousel.addEventListener('touchstart', function(e){ touchX = e.touches[0].clientX; }, {passive:true});
         carousel.addEventListener('touchend', function(e){
             var diff = touchX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 40) { stopAuto(); goTo(diff > 0 ? current+1 : current-1); startAuto(); }
+            if (Math.abs(diff) > 40) { stopAuto(); goTo(diff > 0 ? current + 1 : current - 1); startAuto(); }
         }, {passive:true});
 
         window.addEventListener('resize', function(){
-            perView = window.innerWidth >= 769 ? 3 : window.innerWidth >= 481 ? 2 : 1;
-            maxIdx  = total - perView;
-            goTo(Math.min(current, maxIdx));
+            buildDots(getPages(getPerView()));
+            goTo(current);
         });
 
         startAuto();

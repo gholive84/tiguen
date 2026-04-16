@@ -167,6 +167,9 @@ function tiguen_fetch_google_reviews(): ?array {
         }
     }
 
+    // Limita a 9 avaliações
+    $unique = array_slice( $unique, 0, 9 );
+
     return [
         'place_name'    => 'Tiguen Construtora',
         'rating'        => $rating ? (float) $rating : null,
