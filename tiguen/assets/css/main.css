@@ -552,7 +552,7 @@ a  { color: inherit; text-decoration: none; }
     font-size: clamp(1rem, 1.5vw, 1.2rem);
     color: rgba(255,255,255,0.78);
     max-width: 560px;
-    margin-bottom: 36px;
+    margin: 0 auto 36px;
     line-height: 1.7;
 }
 .hero__actions { display: flex; gap: 16px; flex-wrap: wrap; }
