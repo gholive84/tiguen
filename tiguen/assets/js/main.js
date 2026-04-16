@@ -77,10 +77,22 @@ document.addEventListener('DOMContentLoaded', function () {
         var current = 0; // página atual
         var autoTimer;
 
+        var gap = 24;
+
         function getPerView() {
             return window.innerWidth >= 769 ? 3 : window.innerWidth >= 481 ? 2 : 1;
         }
         function getPages(pv) { return Math.ceil(total / pv); }
+
+        function setCardWidths() {
+            var pv    = getPerView();
+            var wrapW = carousel.parentElement.offsetWidth;
+            var cardW = Math.floor((wrapW - gap * (pv - 1)) / pv);
+            Array.from(cards).forEach(function(c) {
+                c.style.width    = cardW + 'px';
+                c.style.minWidth = cardW + 'px';
+            });
+        }
 
         function buildDots(pages) {
             dotsWrap.innerHTML = '';
@@ -97,9 +109,8 @@ document.addEventListener('DOMContentLoaded', function () {
             var pv    = getPerView();
             var pages = getPages(pv);
             current   = Math.max(0, Math.min(pageIdx, pages - 1));
-            // índice do primeiro card da página, não ultrapassa o fim
             var cardIdx = Math.min(current * pv, total - pv);
-            var cardW   = cards[0].offsetWidth + 24;
+            var cardW   = cards[0].offsetWidth + gap;
             carousel.style.transform = 'translateX(-' + (cardIdx * cardW) + 'px)';
             dotsWrap.querySelectorAll('.reviews-dot').forEach(function(d, i) {
                 d.classList.toggle('active', i === current);
@@ -112,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         function stopAuto() { clearInterval(autoTimer); }
 
+        setCardWidths();
         buildDots(getPages(getPerView()));
 
         if (prevBtn) prevBtn.addEventListener('click', function(){ stopAuto(); goTo(current - 1); startAuto(); });
@@ -129,6 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, {passive:true});
 
         window.addEventListener('resize', function(){
+            setCardWidths();
             buildDots(getPages(getPerView()));
             goTo(current);
         });
