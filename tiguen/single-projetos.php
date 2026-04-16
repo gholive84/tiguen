@@ -11,8 +11,22 @@ while ( have_posts() ) :
     $ano         = function_exists('get_field') ? get_field('ano')         : get_post_meta( get_the_ID(), '_projeto_ano', true );
     $localizacao = function_exists('get_field') ? get_field('localizacao') : get_post_meta( get_the_ID(), '_projeto_localizacao', true );
     $video_url   = function_exists('get_field') ? get_field('video_url')   : get_post_meta( get_the_ID(), '_projeto_video_url', true );
-    $galeria     = function_exists('get_field') ? get_field('galeria')     : [];
     $tipos       = get_the_terms( get_the_ID(), 'tipo_obra' );
+
+    // Galeria: IDs armazenados como string separada por vírgula no meta nativo
+    $galeria     = [];
+    $galeria_ids = get_post_meta( get_the_ID(), '_projeto_galeria', true );
+    if ( $galeria_ids ) {
+        foreach ( array_filter( explode( ',', $galeria_ids ) ) as $img_id ) {
+            $img_id  = intval( $img_id );
+            $full    = wp_get_attachment_image_url( $img_id, 'full' );
+            $medium  = wp_get_attachment_image_url( $img_id, 'projeto-galeria' ) ?: $full;
+            $alt     = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+            if ( $full ) {
+                $galeria[] = [ 'url' => $full, 'medium' => $medium, 'alt' => $alt ];
+            }
+        }
+    }
 ?>
 
 <!-- HERO DO PROJETO -->
@@ -24,7 +38,7 @@ while ( have_posts() ) :
     <?php endif; ?>
     <div class="projeto-hero__overlay">
         <div class="container">
-            <a href="<?php echo esc_url( get_post_type_archive_link('projetos') ); ?>" class="back-link">← Todos os projetos</a>
+            <a href="<?php echo esc_url( home_url('/projetos/') ); ?>" class="back-link">← Todos os projetos</a>
             <?php if ( $tipos && ! is_wp_error( $tipos ) ) : ?>
                 <span class="section-label"><?php echo esc_html( $tipos[0]->name ); ?></span>
             <?php endif; ?>
@@ -54,13 +68,9 @@ while ( have_posts() ) :
             <div class="projeto-galeria">
                 <h2>Galeria de Fotos</h2>
                 <div class="galeria-grid" id="projeto-galeria">
-                    <?php foreach ( $galeria as $img ) :
-                        $img_url  = $img['sizes']['projeto-galeria'] ?? $img['url'];
-                        $img_full = $img['url'];
-                        $img_alt  = $img['alt'];
-                    ?>
-                        <a href="<?php echo esc_url( $img_full ); ?>" class="galeria-item" data-lightbox="projeto">
-                            <img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $img_alt ); ?>" loading="lazy">
+                    <?php foreach ( $galeria as $img ) : ?>
+                        <a href="<?php echo esc_url( $img['url'] ); ?>" class="galeria-item" data-lightbox="projeto">
+                            <img src="<?php echo esc_url( $img['medium'] ); ?>" alt="<?php echo esc_attr( $img['alt'] ); ?>" loading="lazy">
                         </a>
                     <?php endforeach; ?>
                 </div>
