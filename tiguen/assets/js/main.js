@@ -81,6 +81,65 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // ─── LIGHTBOX ────────────────────────────────────────────────
+    var lbItems = Array.from(document.querySelectorAll('[data-lightbox]'));
+    if (lbItems.length) {
+        var overlay  = document.createElement('div');
+        overlay.className = 'lightbox-overlay';
+        overlay.innerHTML =
+            '<div class="lightbox-inner">' +
+                '<img id="lb-img" src="" alt="">' +
+            '</div>' +
+            '<button class="lightbox-close" aria-label="Fechar">×</button>' +
+            '<button class="lightbox-prev" aria-label="Anterior">‹</button>' +
+            '<button class="lightbox-next" aria-label="Próximo">›</button>';
+        document.body.appendChild(overlay);
+
+        var lbImg   = overlay.querySelector('#lb-img');
+        var lbClose = overlay.querySelector('.lightbox-close');
+        var lbPrev  = overlay.querySelector('.lightbox-prev');
+        var lbNext  = overlay.querySelector('.lightbox-next');
+        var lbCurrent = 0;
+
+        function lbOpen(index) {
+            lbCurrent = index;
+            lbImg.src = lbItems[index].getAttribute('href');
+            lbImg.alt = lbItems[index].querySelector('img') ? lbItems[index].querySelector('img').alt : '';
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function lbClose_() {
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(function(){ lbImg.src = ''; }, 250);
+        }
+
+        lbItems.forEach(function(item, i) {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                lbOpen(i);
+            });
+        });
+
+        lbClose.addEventListener('click', lbClose_);
+        lbPrev.addEventListener('click', function() {
+            lbOpen((lbCurrent - 1 + lbItems.length) % lbItems.length);
+        });
+        lbNext.addEventListener('click', function() {
+            lbOpen((lbCurrent + 1) % lbItems.length);
+        });
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) lbClose_();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (!overlay.classList.contains('active')) return;
+            if (e.key === 'Escape')     lbClose_();
+            if (e.key === 'ArrowLeft')  lbPrev.click();
+            if (e.key === 'ArrowRight') lbNext.click();
+        });
+    }
+
     // ─── FORMULÁRIO DE CONTATO ───────────────────────────────────
     var formContato = document.getElementById('form-contato');
     if (formContato) {

@@ -45,8 +45,8 @@ add_action( 'after_setup_theme', 'tiguen_setup' );
 // Enqueue
 function tiguen_scripts() {
     wp_enqueue_style( 'tiguen-style', get_stylesheet_uri(), [], '1.0.0' );
-    wp_enqueue_style( 'tiguen-main',  get_template_directory_uri() . '/assets/css/main.css', [], '1.0.0' );
-    wp_enqueue_script( 'tiguen-main', get_template_directory_uri() . '/assets/js/main.js', [ 'jquery' ], '1.0.0', true );
+    wp_enqueue_style( 'tiguen-main',  get_template_directory_uri() . '/assets/css/main.css', [], '1.2.0' );
+    wp_enqueue_script( 'tiguen-main', get_template_directory_uri() . '/assets/js/main.js', [ 'jquery' ], '1.2.0', true );
 
     wp_localize_script( 'tiguen-main', 'tiguenData', [
         'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
@@ -94,6 +94,23 @@ function tiguen_activate() {
     flush_rewrite_rules();
 }
 add_action( 'after_switch_theme', 'tiguen_activate' );
+
+// Auto-flush quando a versão de rewrite mudar
+add_action( 'init', function() {
+    if ( get_option('tiguen_rewrite_version') !== '1.2' ) {
+        flush_rewrite_rules();
+        update_option('tiguen_rewrite_version', '1.2');
+    }
+}, 999 );
+
+// Forçar template correto para páginas por slug
+add_filter( 'template_include', function( $template ) {
+    if ( is_page('projetos') ) {
+        $t = locate_template('page-projetos.php');
+        if ( $t ) return $t;
+    }
+    return $template;
+});
 
 // Helper: embed YouTube/Vimeo
 function tiguen_get_video_embed( $url ) {

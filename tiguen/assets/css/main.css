@@ -199,7 +199,8 @@ a  { color: inherit; text-decoration: none; }
 }
 .footer-brand .site-title { color: #fff; font-size: 1.5rem; }
 .footer-brand p { margin-top: 12px; font-size: 0.9rem; line-height: 1.7; }
-.footer-logo img { filter: brightness(0) invert(1); max-height: 48px; width: auto; }
+.footer-logo img { filter: brightness(0) invert(1) !important; max-height: 48px; width: auto; display: block; }
+.footer-logo a { display: inline-block; }
 .footer-col h4 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
 .footer-col ul, .footer-nav-menu { list-style: none; padding: 0; margin: 0; }
 .footer-col ul li, .footer-nav-menu li { margin-bottom: 8px; }
@@ -765,4 +766,100 @@ a  { color: inherit; text-decoration: none; }
     .blog-post-card     { grid-template-columns: 1fr; }
     .blog-post-card__body { padding: 20px; }
     .blog-sidebar       { grid-template-columns: 1fr; }
+}
+
+/* ─── LIGHTBOX ──────────────────────────────────────────────── */
+.lightbox-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.92);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.lightbox-overlay.active { opacity: 1; visibility: visible; }
+.lightbox-inner { position: relative; max-width: 90vw; max-height: 90vh; }
+.lightbox-inner img {
+    max-width: 90vw; max-height: 85vh;
+    object-fit: contain; border-radius: 6px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    display: block;
+}
+.lightbox-close {
+    position: fixed; top: 20px; right: 24px;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    color: #fff; font-size: 1.5rem; line-height: 44px; text-align: center;
+    cursor: pointer; border: none;
+    transition: background 0.2s;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.25); }
+.lightbox-prev, .lightbox-next {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    color: #fff; font-size: 1.4rem; line-height: 48px; text-align: center;
+    cursor: pointer; border: none; transition: background 0.2s;
+    user-select: none;
+}
+.lightbox-prev { left: 20px; }
+.lightbox-next { right: 20px; }
+.lightbox-prev:hover, .lightbox-next:hover { background: rgba(255,255,255,0.25); }
+.lightbox-caption {
+    position: absolute; bottom: -32px; left: 0; right: 0;
+    text-align: center; color: rgba(255,255,255,0.6);
+    font-size: 0.85rem;
+}
+.galeria-item { cursor: zoom-in; overflow: hidden; border-radius: 6px; }
+.galeria-item img { transition: transform 0.35s ease; display: block; width: 100%; height: 100%; object-fit: cover; }
+.galeria-item:hover img { transform: scale(1.05); }
+
+/* ─── SERVIÇOS PAGE ─────────────────────────────────────────── */
+.servicos-intro { max-width: 680px; margin: 0 auto 64px; text-align: center; }
+.servicos-intro p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.75; }
+.servicos-full-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-bottom: 72px;
+}
+.servico-full-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+.servico-full-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+}
+.servico-full-card__icon {
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; margin-bottom: 20px;
+}
+.servico-full-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
+.servico-full-card p  { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+.servico-full-card ul { list-style: none; padding: 0; margin: 0; }
+.servico-full-card ul li {
+    font-size: 0.88rem; color: var(--text-muted);
+    padding: 5px 0;
+    padding-left: 18px;
+    position: relative;
+}
+.servico-full-card ul li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--accent); font-size: 0.8rem;
+}
+
+@media (max-width: 1024px) {
+    .servicos-full-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .servicos-full-grid { grid-template-columns: 1fr; }
 }
