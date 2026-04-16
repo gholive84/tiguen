@@ -7,6 +7,7 @@
 require_once get_template_directory() . '/inc/post-types.php';
 require_once get_template_directory() . '/inc/meta-boxes.php';
 require_once get_template_directory() . '/inc/ajax-handlers.php';
+require_once get_template_directory() . '/inc/media-import.php';
 
 // Setup do tema
 function tiguen_setup() {
