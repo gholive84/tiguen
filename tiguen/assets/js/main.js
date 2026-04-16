@@ -66,6 +66,63 @@ document.addEventListener('DOMContentLoaded', function () {
         requestAnimationFrame(step);
     }
 
+    // ─── CARROSSEL DE REVIEWS ───────────────────────────────────
+    var carousel = document.getElementById('reviews-carousel');
+    var dotsWrap = document.getElementById('reviews-dots');
+    if (carousel) {
+        var cards      = carousel.querySelectorAll('.review-card');
+        var prevBtn    = document.querySelector('.reviews-prev');
+        var nextBtn    = document.querySelector('.reviews-next');
+        var perView    = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 640 ? 2 : 1;
+        var total      = cards.length;
+        var maxIdx     = total - perView;
+        var current    = 0;
+        var autoTimer;
+
+        // Criar dots
+        for (var d = 0; d <= maxIdx; d++) {
+            var dot = document.createElement('button');
+            dot.className = 'reviews-dot' + (d === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Ir para avaliação ' + (d + 1));
+            (function(idx){ dot.addEventListener('click', function(){ goTo(idx); }); })(d);
+            dotsWrap.appendChild(dot);
+        }
+
+        function goTo(idx) {
+            current = Math.max(0, Math.min(idx, maxIdx));
+            var cardW = cards[0].offsetWidth + 24;
+            carousel.style.transform = 'translateX(-' + (current * cardW) + 'px)';
+            dotsWrap.querySelectorAll('.reviews-dot').forEach(function(d, i) {
+                d.classList.toggle('active', i === current);
+            });
+        }
+
+        function startAuto() { autoTimer = setInterval(function(){ goTo(current >= maxIdx ? 0 : current + 1); }, 5000); }
+        function stopAuto()  { clearInterval(autoTimer); }
+
+        if (prevBtn) prevBtn.addEventListener('click', function(){ stopAuto(); goTo(current - 1); startAuto(); });
+        if (nextBtn) nextBtn.addEventListener('click', function(){ stopAuto(); goTo(current + 1); startAuto(); });
+
+        carousel.addEventListener('mouseenter', stopAuto);
+        carousel.addEventListener('mouseleave', startAuto);
+
+        // Touch swipe
+        var touchX = 0;
+        carousel.addEventListener('touchstart', function(e){ touchX = e.touches[0].clientX; }, {passive:true});
+        carousel.addEventListener('touchend', function(e){
+            var diff = touchX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 40) { stopAuto(); goTo(diff > 0 ? current+1 : current-1); startAuto(); }
+        }, {passive:true});
+
+        window.addEventListener('resize', function(){
+            perView = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 640 ? 2 : 1;
+            maxIdx  = total - perView;
+            goTo(Math.min(current, maxIdx));
+        });
+
+        startAuto();
+    }
+
     // ─── FILTRO PROJETOS ────────────────────────────────────────
     var filtros  = document.querySelectorAll('.filtro-btn');
     var projetos = document.querySelectorAll('.projeto-card');

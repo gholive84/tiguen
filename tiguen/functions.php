@@ -11,6 +11,7 @@ require_once get_template_directory() . '/inc/content-seeder.php';
 require_once get_template_directory() . '/inc/acf-fields.php';
 require_once get_template_directory() . '/inc/gallery-metabox.php';
 require_once get_template_directory() . '/inc/admin-submissions.php';
+require_once get_template_directory() . '/inc/reviews-scraper.php';
 
 // Meta boxes nativos só carregam se ACF não estiver ativo
 if ( ! function_exists('acf_add_local_field_group') ) {
@@ -46,8 +47,8 @@ add_action( 'after_setup_theme', 'tiguen_setup' );
 // Enqueue
 function tiguen_scripts() {
     wp_enqueue_style( 'tiguen-style', get_stylesheet_uri(), [], '1.0.0' );
-    wp_enqueue_style( 'tiguen-main',  get_template_directory_uri() . '/assets/css/main.css', [], '1.6.0' );
-    wp_enqueue_script( 'tiguen-main', get_template_directory_uri() . '/assets/js/main.js', [ 'jquery' ], '1.6.0', true );
+    wp_enqueue_style( 'tiguen-main',  get_template_directory_uri() . '/assets/css/main.css', [], '1.7.0' );
+    wp_enqueue_script( 'tiguen-main', get_template_directory_uri() . '/assets/js/main.js', [ 'jquery' ], '1.7.0', true );
 
     wp_localize_script( 'tiguen-main', 'tiguenData', [
         'ajaxUrl'        => admin_url( 'admin-ajax.php' ),

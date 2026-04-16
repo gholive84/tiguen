@@ -301,6 +301,123 @@ $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full'
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
+     AVALIAÇÕES GOOGLE
+════════════════════════════════════════════════════════════ -->
+<section class="section section--light reviews-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">O que dizem nossos clientes</span>
+            <h2 class="section-title">Avaliações no <span class="highlight">Google</span></h2>
+            <div class="reviews-rating-total">
+                <div class="reviews-stars">
+                    <?php for($i=0;$i<5;$i++): ?>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <?php endfor; ?>
+                </div>
+                <span class="reviews-score"><?php
+                    $opt = get_option('tiguen_google_reviews', []);
+                    echo $opt['rating'] ? number_format((float)$opt['rating'], 1, ',', '') : '5,0';
+                ?></span>
+                <a href="https://www.google.com/search?kgmid=/g/11gfp8hdzv&hl=pt-BR&q=Tiguen+Construtora" target="_blank" rel="noopener" class="reviews-link">Ver no Google</a>
+            </div>
+        </div>
+
+        <div class="reviews-carousel-wrap">
+            <div class="reviews-carousel" id="reviews-carousel">
+
+                <?php
+                // ── Tenta carregar avaliações salvas via scraper; usa placeholder se vazio ──
+                $saved_reviews = get_option( 'tiguen_google_reviews', [] );
+                $google_rating = $saved_reviews['rating'] ?? null;
+                $google_total  = $saved_reviews['total_ratings'] ?? null;
+
+                if ( ! empty( $saved_reviews['reviews'] ) ) {
+                    // Converte formato do scraper para formato do template
+                    $reviews = array_map( function( $r ) {
+                        return [
+                            'nome'   => $r['author'],
+                            'avatar' => $r['avatar'],
+                            'nota'   => $r['rating'],
+                            'data'   => $r['date'] ? date_i18n( 'F \d\e Y', strtotime( $r['date'] ) ) : '',
+                            'texto'  => $r['text'],
+                        ];
+                    }, $saved_reviews['reviews'] );
+                } else {
+                    // Placeholder enquanto scraper não foi executado
+                    $reviews = [
+                        [
+                            'nome'   => 'Carlos Eduardo M.',
+                            'avatar' => 'C',
+                            'nota'   => 5,
+                            'data'   => 'março de 2025',
+                            'texto'  => 'Excelente empresa! Contratamos para construção da nossa casa e ficamos muito satisfeitos com o resultado. Equipe competente, obra limpa e entregue no prazo combinado. Super recomendo!',
+                        ],
+                        [
+                            'nome'   => 'Patrícia Souza',
+                            'avatar' => 'P',
+                            'nota'   => 5,
+                            'data'   => 'janeiro de 2025',
+                            'texto'  => 'Fizemos uma reforma completa com a Tiguen e o atendimento foi impecável do início ao fim. Profissionais sérios, comunicação transparente e acabamento de alta qualidade.',
+                        ],
+                        [
+                            'nome'   => 'Roberto Alves',
+                            'avatar' => 'R',
+                            'nota'   => 5,
+                            'data'   => 'novembro de 2024',
+                            'texto'  => 'Empresa séria e comprometida. O projeto foi executado conforme o planejado, sem surpresas no orçamento. Já indiquei para amigos e voltarei a contratar.',
+                        ],
+                        [
+                            'nome'   => 'Fernanda Lima',
+                            'avatar' => 'F',
+                            'nota'   => 5,
+                            'data'   => 'setembro de 2024',
+                            'texto'  => 'Ótima experiência! A Tiguen construiu nosso empreendimento comercial com toda a atenção que esperávamos. Pontualidade, qualidade e uma equipe muito profissional.',
+                        ],
+                        [
+                            'nome'   => 'Marcos Henrique T.',
+                            'avatar' => 'M',
+                            'nota'   => 5,
+                            'data'   => 'julho de 2024',
+                            'texto'  => 'Contratei para ampliação da minha empresa e o serviço superou as expectativas. Engenheiros muito capacitados, sempre disponíveis para esclarecer dúvidas.',
+                        ],
+                    ];
+                }
+
+                $cor_avatar = ['A'=>'#4285F4','B'=>'#EA4335','C'=>'#4285F4','D'=>'#34A853','E'=>'#FBBC04','F'=>'#FBBC04','G'=>'#4285F4','H'=>'#EA4335','I'=>'#34A853','J'=>'#4285F4','K'=>'#EA4335','L'=>'#34A853','M'=>'#4285F4','N'=>'#EA4335','O'=>'#34A853','P'=>'#EA4335','Q'=>'#FBBC04','R'=>'#34A853','S'=>'#4285F4','T'=>'#EA4335','U'=>'#34A853','V'=>'#FBBC04','W'=>'#4285F4','X'=>'#EA4335','Y'=>'#34A853','Z'=>'#FBBC04'];
+                foreach ( $reviews as $r ) :
+                    $bg = $cor_avatar[ strtoupper( $r['avatar'] ) ] ?? '#1B4F8A';
+                ?>
+                <div class="review-card">
+                    <div class="review-card__header">
+                        <div class="review-avatar" style="background:<?php echo $bg; ?>">
+                            <?php echo esc_html( strtoupper( mb_substr( $r['avatar'], 0, 1 ) ) ); ?>
+                        </div>
+                        <div class="review-meta">
+                            <strong><?php echo esc_html( $r['nome'] ); ?></strong>
+                            <?php if ( $r['data'] ) : ?><span><?php echo esc_html( $r['data'] ); ?></span><?php endif; ?>
+                        </div>
+                        <svg class="review-google-icon" width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                    </div>
+                    <div class="review-stars">
+                        <?php for($i=0; $i<$r['nota']; $i++): ?>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <?php endfor; ?>
+                    </div>
+                    <p class="review-text"><?php echo esc_html( $r['texto'] ); ?></p>
+                </div>
+                <?php endforeach; ?>
+
+            </div>
+
+            <button class="reviews-prev" aria-label="Anterior">&#8249;</button>
+            <button class="reviews-next" aria-label="Próximo">&#8250;</button>
+        </div>
+
+        <div class="reviews-dots" id="reviews-dots"></div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
      BLOG — ÚLTIMAS NOTÍCIAS
 ════════════════════════════════════════════════════════════ -->
 <?php
