@@ -17,16 +17,21 @@ document.addEventListener('DOMContentLoaded', function () {
     var animEls = document.querySelectorAll('[data-animate]');
     if (animEls.length && 'IntersectionObserver' in window) {
         var observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                    observer.unobserve(entry.target);
-                }
+            // Agrupa entradas visíveis e aplica stagger só dentro do grupo
+            var visible = entries.filter(function(e) { return e.isIntersecting; });
+            visible.forEach(function (entry, i) {
+                var el = entry.target;
+                el.style.transitionDelay = (i * 0.06) + 's';
+                el.classList.add('animated');
+                observer.unobserve(el);
             });
-        }, { threshold: 0.1 });
+        }, {
+            threshold: 0,
+            rootMargin: '0px 0px -40px 0px'
+        });
 
-        animEls.forEach(function (el, i) {
-            el.style.transitionDelay = (i * 0.07) + 's';
+        animEls.forEach(function (el) {
+            el.style.transitionDelay = '0s';
             observer.observe(el);
         });
     } else {
