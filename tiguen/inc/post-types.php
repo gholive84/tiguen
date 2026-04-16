@@ -24,7 +24,7 @@ function tiguen_register_projetos() {
         'menu_icon'         => 'dashicons-building',
         'menu_position'     => 5,
         'supports'          => [ 'title', 'editor', 'thumbnail', 'excerpt' ],
-        'has_archive'       => true,
+        'has_archive'       => false,
         'rewrite'           => [ 'slug' => 'projetos' ],
         'show_in_rest'      => true,
     ]);

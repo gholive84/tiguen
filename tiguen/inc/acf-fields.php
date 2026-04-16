@@ -19,19 +19,6 @@ acf_add_local_field_group([
     'fields' => [
 
         [
-            'key'           => 'field_projeto_galeria',
-            'label'         => 'Galeria de Fotos',
-            'name'          => 'galeria',
-            'type'          => 'gallery',
-            'return_format' => 'array',
-            'preview_size'  => 'thumbnail',
-            'insert'        => 'append',
-            'min'           => 0,
-            'max'           => 0,
-            'instructions'  => 'Adicione as fotos do projeto. A primeira será usada como destaque na galeria.',
-        ],
-
-        [
             'key'          => 'field_projeto_area',
             'label'        => 'Área (m²)',
             'name'         => 'area',
