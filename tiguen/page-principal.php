@@ -323,6 +323,7 @@ $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full'
         </div>
 
         <div class="reviews-carousel-wrap">
+            <div class="reviews-track">
             <div class="reviews-carousel" id="reviews-carousel">
 
                 <?php
@@ -437,6 +438,7 @@ $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full'
 
             </div>
 
+            </div><!-- /.reviews-track -->
             <button class="reviews-prev" aria-label="Anterior">&#8249;</button>
             <button class="reviews-next" aria-label="Próximo">&#8250;</button>
         </div>

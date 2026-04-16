@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function setCardWidths() {
             var pv    = getPerView();
-            var wrapW = carousel.parentElement.offsetWidth;
+            var wrapW = carousel.parentElement.offsetWidth; // .reviews-track
             var cardW = Math.floor((wrapW - gap * (pv - 1)) / pv);
             Array.from(cards).forEach(function(c) {
                 c.style.width    = cardW + 'px';
