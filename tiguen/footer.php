@@ -5,7 +5,7 @@
             <!-- Marca -->
             <div class="footer-brand">
                 <?php if ( has_custom_logo() ) : ?>
-                    <?php the_custom_logo(); ?>
+                    <div class="footer-logo"><?php the_custom_logo(); ?></div>
                 <?php else : ?>
                     <a href="<?php echo esc_url( home_url('/') ); ?>" class="site-title">tiguen</a>
                 <?php endif; ?>
@@ -29,14 +29,12 @@
             <!-- Links -->
             <div class="footer-col">
                 <h4>Navegação</h4>
-                <ul>
-                    <li><a href="<?php echo esc_url( home_url('/') ); ?>">Home</a></li>
-                    <li><a href="<?php echo esc_url( home_url('/sobre') ); ?>">Sobre Nós</a></li>
-                    <li><a href="<?php echo esc_url( home_url('/servicos') ); ?>">Serviços</a></li>
-                    <li><a href="<?php echo esc_url( home_url('/projetos') ); ?>">Projetos</a></li>
-                    <li><a href="<?php echo esc_url( home_url('/blog') ); ?>">Blog</a></li>
-                    <li><a href="<?php echo esc_url( home_url('/contato') ); ?>">Contato</a></li>
-                </ul>
+                <?php wp_nav_menu([
+                    'menu'           => 'principal',
+                    'container'      => false,
+                    'menu_class'     => 'footer-nav-menu',
+                    'fallback_cb'    => false,
+                ]); ?>
             </div>
 
             <!-- Contato -->
@@ -55,7 +53,7 @@
 
         <div class="footer-bottom">
             <p>&copy; <?php echo date('Y'); ?> Tiguen Engenharia e Construções. Todos os direitos reservados.</p>
-            <p>Desenvolvido por <a href="https://nidex.com.br" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.5)">Nidex</a></p>
+            <p>Desenvolvido por <a href="https://inundaweb.com.br" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.5)">Inundaweb</a></p>
         </div>
     </div>
 </footer>
