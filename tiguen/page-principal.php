@@ -118,7 +118,6 @@ $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full'
                 wp_reset_postdata();
             else :
                 $items = [
-                    ['icon' => 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM9 22V12h6v10',              'titulo' => 'Arquitetura',               'texto' => 'Projetamos espaços únicos com funcionalidade e estética, do conceito ao detalhamento executivo.'],
                     ['icon' => 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 8v4l3 3',                        'titulo' => 'Inovação e Planejamento',   'texto' => 'Utilizamos ferramentas tecnológicas de última geração para planejar e gerir seu projeto do início ao fim.'],
                     ['icon' => 'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z', 'titulo' => 'Reformas', 'texto' => 'Reformas residenciais e comerciais planejadas com rigor técnico, mínima interferência e máximo resultado.'],
                     ['icon' => 'M2 20h20M6 20V10m6 10V4m6 16V14',                                            'titulo' => 'Empreendimentos',          'texto' => 'Desenvolvemos empreendimentos residenciais e comerciais do projeto à entrega, com controle total de qualidade.'],
