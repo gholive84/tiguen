@@ -3,21 +3,21 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // ─── VIDEO COVER ────────────────────────────────────────────
-    var videoCover = document.querySelector('.video-cover');
-    if (videoCover) {
-        videoCover.addEventListener('click', function () {
+    document.querySelectorAll('.video-cover').forEach(function (cover) {
+        cover.addEventListener('click', function () {
             var videoId = this.dataset.videoId;
             var wrapper = this.parentElement;
+            var radius  = this.classList.contains('video-cover--small') ? '14px' : '16px';
             var iframe  = document.createElement('iframe');
             iframe.src         = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
             iframe.title       = 'Vídeo institucional Tiguen Engenharia';
             iframe.frameBorder = '0';
             iframe.allow       = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
             iframe.allowFullscreen = true;
-            iframe.style.cssText   = 'position:absolute;top:0;left:0;width:100%;height:100%;border-radius:16px;';
+            iframe.style.cssText   = 'position:absolute;top:0;left:0;width:100%;height:100%;border-radius:' + radius + ';';
             wrapper.replaceChild(iframe, this);
         });
-    }
+    });
 
     // ─── MOBILE MENU ────────────────────────────────────────────
     var toggle = document.querySelector('.menu-toggle');

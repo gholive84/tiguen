@@ -14,24 +14,57 @@ get_header(); ?>
     </div>
 </section>
 
-<!-- SOBRE: TEXTO PRINCIPAL -->
+<!-- SOBRE: TEXTO PRINCIPAL + VÍDEO -->
 <section class="section section--white">
-    <div class="container sobre-grid">
-        <div class="sobre-content">
-            <?php
-            while ( have_posts() ) :
-                the_post();
-                the_content();
-            endwhile;
-            ?>
+    <div class="container sobre-intro-grid">
+
+        <div class="sobre-intro-content" data-animate>
+            <span class="section-label">Quem somos</span>
+            <h2 class="section-title" style="text-align:left;">Engenharia com <span class="highlight">propósito</span></h2>
+
+            <p>Com mais de 15 anos de atuação em São José dos Pinhais e na região metropolitana de Curitiba, a Tiguen Engenharia se consolidou como referência em execução de obras residenciais, comerciais e institucionais.</p>
+
+            <p>Nossa história nasceu de uma missão clara: oferecer o que o mercado raramente entrega junto — <strong>qualidade técnica e transparência total</strong>. Acreditamos que cada obra é muito mais do que concreto e aço. É a realização de um sonho, a expansão de um negócio ou o lar de uma família.</p>
+
+            <p>Somos especializados na <strong>execução de projetos prontos</strong>, atuando como construtora responsável por transformar projetos de engenharia em obras concluídas com rigor técnico, dentro do prazo e do orçamento acordados. Do movimento de terra à entrega das chaves, nossa equipe está presente em cada detalhe.</p>
+
+            <p>Ao longo desses anos, entregamos mais de <strong>120 obras</strong>, firmamos parcerias sólidas com fornecedores e profissionais da região, e conquistamos a confiança de centenas de famílias e empresas que realizaram seus projetos conosco.</p>
+
+            <div class="sobre-intro-nums">
+                <div class="sobre-intro-num">
+                    <strong>+15</strong>
+                    <span>anos de mercado</span>
+                </div>
+                <div class="sobre-intro-num">
+                    <strong>+120</strong>
+                    <span>obras entregues</span>
+                </div>
+                <div class="sobre-intro-num">
+                    <strong>100%</strong>
+                    <span>compromisso com prazo</span>
+                </div>
+            </div>
         </div>
-        <div class="sobre-image">
-            <?php
-            if ( has_post_thumbnail() ) {
-                the_post_thumbnail( 'large', [ 'class' => 'sobre-img', 'loading' => 'lazy' ] );
-            }
-            ?>
+
+        <div class="sobre-intro-video" data-animate>
+            <div class="sobre-video-wrapper">
+                <div class="video-cover video-cover--small" data-video-id="HuXfe3ePKa0" role="button" aria-label="Reproduzir vídeo institucional">
+                    <img
+                        src="https://img.youtube.com/vi/HuXfe3ePKa0/maxresdefault.jpg"
+                        alt="Vídeo institucional Tiguen Engenharia"
+                        class="video-cover__thumb">
+                    <div class="video-cover__overlay"></div>
+                    <button class="video-play-btn video-play-btn--sm" aria-hidden="true">
+                        <span class="video-play-btn__ring"></span>
+                        <svg class="video-play-btn__icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5.14v14l11-7-11-7z"/>
+                        </svg>
+                    </button>
+                    <span class="video-cover__label">Assistir vídeo</span>
+                </div>
+            </div>
         </div>
+
     </div>
 </section>
 
