@@ -56,7 +56,7 @@ $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full'
 <!-- ═══════════════════════════════════════════════════════════
      VÍDEO INSTITUCIONAL
 ════════════════════════════════════════════════════════════ -->
-<section class="section section--white video-institucional">
+<section class="section video-institucional">
     <div class="container">
         <div class="section-header">
             <span class="section-label">Quem somos</span>
