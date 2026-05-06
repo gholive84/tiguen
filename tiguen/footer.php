@@ -42,7 +42,7 @@
                 <h4>Contato</h4>
                 <ul>
                     <li><a href="tel:+554130580377">(41) 3058-0377</a></li>
-                    <li><a href="mailto:projetos@tiguen.com">projetos@tiguen.com</a></li>
+                    <li><a href="mailto:contato@tiguen.com">contato@tiguen.com</a></li>
                     <li>Rua Cel. Luis Victorino Ordine, 1802</li>
                     <li>São Pedro — São José dos Pinhais, PR</li>
                     <li>CEP 83.005-040</li>

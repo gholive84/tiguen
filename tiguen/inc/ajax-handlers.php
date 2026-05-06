@@ -38,7 +38,7 @@ function tiguen_handle_contato() {
     }
 
     // Enviar e-mail
-    $to      = 'projetos@tiguen.com';
+    $to      = 'contato@tiguen.com';
     $subject = 'Novo contato pelo site — ' . $nome;
     $body    = "Nome: {$nome}\nE-mail: {$email}\nTelefone: {$telefone}\n\nMensagem:\n{$mensagem}";
     $headers = [ 'Content-Type: text/plain; charset=UTF-8', "Reply-To: {$email}" ];
@@ -124,7 +124,7 @@ function tiguen_handle_curriculo() {
     }
 
     // Enviar e-mail com anexo
-    $to      = 'projetos@tiguen.com';
+    $to      = 'contato@tiguen.com';
     $subject = 'Currículo recebido — ' . $nome;
     $body    = "Nome: {$nome}\nE-mail: {$email}\nCargo desejado: {$cargo}";
     $headers = [ 'Content-Type: text/plain; charset=UTF-8', "Reply-To: {$email}" ];

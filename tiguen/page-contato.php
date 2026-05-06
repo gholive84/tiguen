@@ -78,7 +78,7 @@ get_header(); ?>
                 </div>
                 <div>
                     <strong>E-mail</strong>
-                    <p><a href="mailto:projetos@tiguen.com">projetos@tiguen.com</a></p>
+                    <p><a href="mailto:contato@tiguen.com">contato@tiguen.com</a></p>
                 </div>
             </div>
 
