@@ -54,6 +54,29 @@ $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full'
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
+     VÍDEO INSTITUCIONAL
+════════════════════════════════════════════════════════════ -->
+<section class="section section--white video-institucional">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Quem somos</span>
+            <h2 class="section-title">Conheça a <span class="highlight">Tiguen</span></h2>
+            <p class="section-sub">Assista ao nosso vídeo institucional e veja como transformamos projetos em realidade.</p>
+        </div>
+        <div class="video-institucional__wrapper" data-animate>
+            <iframe
+                src="https://www.youtube.com/embed/HuXfe3ePKa0"
+                title="Vídeo institucional Tiguen Engenharia"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy">
+            </iframe>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
      CONTADORES DE OBRA
 ════════════════════════════════════════════════════════════ -->
 <section class="section section--dark counters-section">
