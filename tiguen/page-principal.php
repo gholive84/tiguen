@@ -64,14 +64,20 @@ $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full'
             <p class="section-sub">Assista ao nosso vídeo institucional e veja como transformamos projetos em realidade.</p>
         </div>
         <div class="video-institucional__wrapper" data-animate>
-            <iframe
-                src="https://www.youtube.com/embed/HuXfe3ePKa0"
-                title="Vídeo institucional Tiguen Engenharia"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy">
-            </iframe>
+            <div class="video-cover" data-video-id="HuXfe3ePKa0" role="button" aria-label="Reproduzir vídeo institucional">
+                <img
+                    src="https://img.youtube.com/vi/HuXfe3ePKa0/maxresdefault.jpg"
+                    alt="Vídeo institucional Tiguen Engenharia"
+                    class="video-cover__thumb">
+                <div class="video-cover__overlay"></div>
+                <button class="video-play-btn" aria-hidden="true">
+                    <span class="video-play-btn__ring"></span>
+                    <svg class="video-play-btn__icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5.14v14l11-7-11-7z"/>
+                    </svg>
+                </button>
+                <span class="video-cover__label">Assistir vídeo</span>
+            </div>
         </div>
     </div>
 </section>
