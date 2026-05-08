@@ -318,18 +318,19 @@ a  { color: inherit; text-decoration: none; }
 .mvv-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; }
 .mvv-card p  { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
 
-.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
 .team-card {
-    background: var(--white); border: 1px solid var(--border);
-    border-radius: var(--radius); overflow: hidden;
-    box-shadow: var(--shadow); transition: var(--transition);
+    background: transparent; border: 0; box-shadow: none;
+    text-align: center; transition: var(--transition);
 }
-.team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.team-card__photo img { width: 100%; height: 220px; object-fit: cover; }
-.team-card__info      { padding: 20px; }
-.team-card__name      { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
-.team-card__cargo     { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
-.team-card__linkedin  { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 600; color: #0A66C2; }
+.team-card:hover { transform: translateY(-4px); }
+.team-card:hover .team-card__photo img { box-shadow: var(--shadow-lg); }
+.team-card__photo       { display: flex; justify-content: center; margin-bottom: 16px; }
+.team-card__photo img   { width: 220px; height: 220px; object-fit: cover; border-radius: 50%; transition: var(--transition); }
+.team-card__info        { padding: 0; }
+.team-card__name        { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+.team-card__cargo       { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px; }
+.team-card__linkedin    { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 600; color: #0A66C2; }
 
 .selos-grid { display: flex; flex-wrap: wrap; gap: 32px; align-items: center; justify-content: center; }
 .selos-placeholder { text-align: center; color: rgba(255,255,255,0.4); width: 100%; padding: 40px 0; }
