@@ -145,9 +145,69 @@ get_header(); ?>
                     <?php
                 endwhile;
                 wp_reset_postdata();
-            else : ?>
-                <p class="no-content">Em breve apresentaremos nossa equipe.</p>
-            <?php endif; ?>
+            else :
+                $equipe_fallback = [
+                    [
+                        'nome'     => 'Max Gustavo Cristóvão',
+                        'cargo'    => 'Diretor Comercial',
+                        'imagem'   => 'max.jpeg',
+                        'linkedin' => '',
+                    ],
+                    [
+                        'nome'     => 'Allane Kellen Sinja',
+                        'cargo'    => 'Diretora Administrativa',
+                        'imagem'   => 'allane.jpeg',
+                        'linkedin' => '',
+                    ],
+                    [
+                        'nome'     => 'Michel Cortes Ferracine',
+                        'cargo'    => 'Engenheiro Civil',
+                        'imagem'   => 'michel.jpeg',
+                        'linkedin' => '',
+                    ],
+                    [
+                        'nome'     => 'Vanessa Cristina Placedes',
+                        'cargo'    => 'Engenheira Civil',
+                        'imagem'   => 'vanessa.jpeg',
+                        'linkedin' => '',
+                    ],
+                    [
+                        'nome'     => 'Waitter Assis Abdala Schmidt',
+                        'cargo'    => 'Departamento de Compras',
+                        'imagem'   => 'Waitter.jpeg',
+                        'linkedin' => '',
+                    ],
+                    [
+                        'nome'     => 'Danielle de Sena',
+                        'cargo'    => 'Departamento Financeiro',
+                        'imagem'   => 'Danielle.jpeg',
+                        'linkedin' => '',
+                    ],
+                    [
+                        'nome'     => 'Pamela da Silva Machado',
+                        'cargo'    => 'Auxiliar Administrativo',
+                        'imagem'   => 'Pamela.jpeg',
+                        'linkedin' => '',
+                    ],
+                ];
+                foreach ( $equipe_fallback as $m ) : ?>
+                    <div class="team-card">
+                        <div class="team-card__photo">
+                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/' . $m['imagem'] ); ?>" alt="<?php echo esc_attr( $m['nome'] ); ?>" loading="lazy">
+                        </div>
+                        <div class="team-card__info">
+                            <h3 class="team-card__name"><?php echo esc_html( $m['nome'] ); ?></h3>
+                            <p class="team-card__cargo"><?php echo esc_html( $m['cargo'] ); ?></p>
+                            <?php if ( $m['linkedin'] ) : ?>
+                                <a href="<?php echo esc_url( $m['linkedin'] ); ?>" target="_blank" rel="noopener" class="team-card__linkedin" aria-label="LinkedIn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                                    LinkedIn
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach;
+            endif; ?>
         </div>
     </div>
 </section>
