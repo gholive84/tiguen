@@ -40,6 +40,8 @@ function tiguen_seeder_page() {
             $results = tiguen_seed_projetos();
         } elseif ( $tipo === 'equipe' ) {
             $results = tiguen_seed_equipe();
+        } elseif ( $tipo === 'equipe_replace' ) {
+            $results = array_merge( tiguen_clear_equipe(), tiguen_seed_equipe() );
         } elseif ( $tipo === 'blog' ) {
             $results = tiguen_seed_blog();
         } elseif ( $tipo === 'all' ) {
@@ -122,6 +124,9 @@ function tiguen_seeder_page() {
             </button>
             <button type="submit" name="seed_tipo" value="equipe" class="button button-primary button-large">
                 👥 Criar Equipe de Exemplo
+            </button>
+            <button type="submit" name="seed_tipo" value="equipe_replace" class="button button-large" style="background:#B91C1C;color:#fff;border-color:#B91C1C;" onclick="return confirm('Isso vai APAGAR todos os membros atuais da equipe e recriar com a lista oficial. Continuar?');">
+                🔄 Substituir Equipe (apaga e recria)
             </button>
             <button type="submit" name="seed_tipo" value="blog" class="button button-primary button-large">
                 📝 Criar Posts de Blog
@@ -255,6 +260,32 @@ function tiguen_seed_projetos() {
 }
 
 // ─── SEED: EQUIPE ────────────────────────────────────────────────────────────
+
+function tiguen_clear_equipe() {
+    $results = [];
+    $existentes = get_posts([
+        'post_type'      => 'equipe',
+        'posts_per_page' => -1,
+        'post_status'    => 'any',
+    ]);
+
+    if ( ! $existentes ) {
+        $results[] = [ 'status' => 'skip', 'msg' => 'Nenhum membro da equipe para apagar.' ];
+        return $results;
+    }
+
+    foreach ( $existentes as $post ) {
+        $titulo = $post->post_title;
+        $deleted = wp_delete_post( $post->ID, true );
+        if ( $deleted ) {
+            $results[] = [ 'status' => 'created', 'msg' => "Membro '{$titulo}' apagado." ];
+        } else {
+            $results[] = [ 'status' => 'error', 'msg' => "Erro ao apagar '{$titulo}'." ];
+        }
+    }
+
+    return $results;
+}
 
 function tiguen_seed_equipe() {
     $results = [];
