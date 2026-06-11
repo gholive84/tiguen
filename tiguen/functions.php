@@ -12,6 +12,7 @@ require_once get_template_directory() . '/inc/acf-fields.php';
 require_once get_template_directory() . '/inc/gallery-metabox.php';
 require_once get_template_directory() . '/inc/admin-submissions.php';
 require_once get_template_directory() . '/inc/reviews-scraper.php';
+require_once get_template_directory() . '/inc/smtp-config.php';
 
 // Meta boxes nativos só carregam se ACF não estiver ativo
 if ( ! function_exists('acf_add_local_field_group') ) {
