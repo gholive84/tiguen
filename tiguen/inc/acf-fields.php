@@ -10,7 +10,7 @@ if ( ! function_exists('acf_add_local_field_group') ) return;
 
 acf_add_local_field_group([
     'key'      => 'group_projetos',
-    'title'    => 'Dados do Projeto',
+    'title'    => 'Dados da Obra',
     'position' => 'normal',
     'style'    => 'default',
     'location' => [[
@@ -50,7 +50,7 @@ acf_add_local_field_group([
 
         [
             'key'          => 'field_projeto_video_url',
-            'label'        => 'Vídeo do Projeto (YouTube ou Vimeo)',
+            'label'        => 'Vídeo da Obra (YouTube ou Vimeo)',
             'name'         => 'video_url',
             'type'         => 'url',
             'placeholder'  => 'https://www.youtube.com/watch?v=...',

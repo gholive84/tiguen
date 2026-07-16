@@ -17,7 +17,7 @@ function tiguen_projetos_meta_boxes() {
 
     add_meta_box(
         'projeto_detalhes',
-        'Detalhes do Projeto',
+        'Detalhes da Obra',
         'tiguen_render_detalhes_meta_box',
         'projetos',
         'side',
@@ -26,7 +26,7 @@ function tiguen_projetos_meta_boxes() {
 
     add_meta_box(
         'projeto_video',
-        'Vídeo do Projeto',
+        'Vídeo da Obra',
         'tiguen_render_video_meta_box',
         'projetos',
         'normal',

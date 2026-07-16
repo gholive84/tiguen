@@ -228,7 +228,7 @@ $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full'
     <div class="container">
         <div class="section-header">
             <span class="section-label">Portfólio</span>
-            <h2 class="section-title">Projetos em destaque</h2>
+            <h2 class="section-title">Obras em destaque</h2>
             <p class="section-sub">Conheça algumas das obras que entregamos com excelência.</p>
         </div>
         <div class="projetos-grid">

@@ -57,7 +57,7 @@ while ( have_posts() ) :
     <div class="container projeto-layout">
 
         <div class="projeto-descricao">
-            <h2>Sobre o Projeto</h2>
+            <h2>Sobre a Obra</h2>
             <div class="prose">
                 <?php the_content(); ?>
             </div>
@@ -81,7 +81,7 @@ while ( have_posts() ) :
         <?php $embed = tiguen_get_video_embed( $video_url );
         if ( $embed ) : ?>
             <div class="projeto-video">
-                <h2>Vídeo do Projeto</h2>
+                <h2>Vídeo da Obra</h2>
                 <div class="video-wrapper">
                     <?php echo $embed; ?>
                 </div>
@@ -95,7 +95,7 @@ while ( have_posts() ) :
 <section class="section section--light">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">Outros Projetos</h2>
+            <h2 class="section-title">Outras Obras</h2>
         </div>
         <div class="projetos-grid projetos-grid--small">
             <?php

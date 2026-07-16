@@ -52,11 +52,11 @@ function tiguen_seeder_page() {
     // Status das imagens
     $imagens_check = [
         'hero-obra.jpg'            => 'Hero / Capa',
-        'projeto-residencial.jpg'  => 'Projeto Residencial',
-        'projeto-casa.jpg'         => 'Projeto Casa',
-        'projeto-comercial.jpg'    => 'Projeto Comercial',
-        'projeto-institucional.jpg'=> 'Projeto Institucional',
-        'projeto-obra-civil.jpg'   => 'Projeto Obra Civil',
+        'projeto-residencial.jpg'  => 'Obra Residencial',
+        'projeto-casa.jpg'         => 'Obra Casa',
+        'projeto-comercial.jpg'    => 'Obra Comercial',
+        'projeto-institucional.jpg'=> 'Obra Institucional',
+        'projeto-obra-civil.jpg'   => 'Obra Civil',
         'sobre-equipe.jpg'          => 'Sobre — Equipe',
         'max.jpeg'                  => 'Equipe — Max Gustavo (Diretor Comercial)',
         'allane.jpeg'               => 'Equipe — Allane Kellen (Diretora Administrativa)',
@@ -73,7 +73,7 @@ function tiguen_seeder_page() {
     ?>
     <div class="wrap">
         <h1>Criar Conteúdo de Exemplo</h1>
-        <p style="color:#666;">Cria posts de Projetos e Equipe com conteúdo real usando as imagens importadas na Mídia.</p>
+        <p style="color:#666;">Cria posts de Obras e Equipe com conteúdo real usando as imagens importadas na Mídia.</p>
 
         <?php if ( $results ) : ?>
             <div class="notice" style="padding:12px 16px;background:#fff;border-left:4px solid #2563EB;margin:16px 0;">
@@ -120,7 +120,7 @@ function tiguen_seeder_page() {
         <form method="post" style="display:flex;gap:12px;flex-wrap:wrap;">
             <?php wp_nonce_field('tiguen_seeder', 'tiguen_seeder_nonce'); ?>
             <button type="submit" name="seed_tipo" value="projetos" class="button button-primary button-large">
-                🏗️ Criar Projetos de Exemplo
+                🏗️ Criar Obras de Exemplo
             </button>
             <button type="submit" name="seed_tipo" value="equipe" class="button button-primary button-large">
                 👥 Criar Equipe de Exemplo
@@ -214,7 +214,7 @@ function tiguen_seed_projetos() {
         // Evita duplicata
         $existing = get_posts(['post_type' => 'projetos', 'title' => $p['titulo'], 'numberposts' => 1]);
         if ( $existing ) {
-            $results[] = [ 'status' => 'skip', 'msg' => "Projeto '{$p['titulo']}': já existe." ];
+            $results[] = [ 'status' => 'skip', 'msg' => "Obra '{$p['titulo']}': já existe." ];
             continue;
         }
 
@@ -251,7 +251,7 @@ function tiguen_seed_projetos() {
 
         $results[] = [
             'status' => 'created',
-            'msg'    => "Projeto '{$p['titulo']}' criado" . ($img_id ? ' com imagem' : ' (importe a imagem primeiro)'),
+            'msg'    => "Obra '{$p['titulo']}' criada" . ($img_id ? ' com imagem' : ' (importe a imagem primeiro)'),
             'url'    => get_edit_post_link($post_id),
         ];
     }

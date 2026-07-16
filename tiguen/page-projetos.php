@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Projetos
+ * Template Name: Obras
  * Slug da página: projetos
  */
 get_header(); ?>
@@ -10,7 +10,7 @@ get_header(); ?>
     <div class="container">
         <span class="section-label">Portfólio</span>
         <h1 class="page-hero__title">Nossas <span class="highlight">Obras</span></h1>
-        <p class="page-hero__sub">Projetos residenciais, comerciais e institucionais entregues com qualidade e no prazo.</p>
+        <p class="page-hero__sub">Obras residenciais, comerciais e institucionais entregues com qualidade e no prazo.</p>
     </div>
 </section>
 
