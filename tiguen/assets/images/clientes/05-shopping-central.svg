@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <g fill="#6D28D9">
+    <path d="M20 55 L20 30 L35 20 L50 30 L50 55 Z"/>
+    <rect x="30" y="40" width="10" height="15" fill="#F3F4F6"/>
+  </g>
+  <text x="62" y="38" font-family="'Helvetica Neue', Arial, sans-serif" font-size="16" font-weight="800" fill="#6D28D9">Central</text>
+  <text x="62" y="55" font-family="'Helvetica Neue', Arial, sans-serif" font-size="9" font-weight="500" fill="#8395A7" letter-spacing="3">SHOPPING CENTER</text>
+</svg>

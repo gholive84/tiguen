@@ -1,4 +1,4 @@
-<?php $selos = tiguen_scan_images_dir( 'selos' ); if ( $selos ) : ?>
+<?php $selos = tiguen_get_logos( 'selos' ); if ( $selos ) : ?>
 <section class="pre-footer-selos">
     <div class="container">
         <div class="section-header">
@@ -6,11 +6,11 @@
             <h2 class="section-title">Selos e Certificações</h2>
         </div>
         <div class="pre-footer-selos__grid">
-            <?php foreach ( $selos as $file ) : ?>
+            <?php foreach ( $selos as $logo ) : ?>
                 <div class="pre-footer-selos__item">
                     <img
-                        src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/selos/' . $file ); ?>"
-                        alt="<?php echo esc_attr( pathinfo( $file, PATHINFO_FILENAME ) ); ?>"
+                        src="<?php echo esc_url( $logo['url'] ); ?>"
+                        alt="<?php echo esc_attr( $logo['alt'] ); ?>"
                         loading="lazy">
                 </div>
             <?php endforeach; ?>

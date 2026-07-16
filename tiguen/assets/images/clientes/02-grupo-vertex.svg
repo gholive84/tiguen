@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <polygon points="20,55 35,15 50,55" fill="none" stroke="#D97706" stroke-width="4" stroke-linejoin="round"/>
+  <polygon points="28,55 35,32 42,55" fill="#D97706"/>
+  <text x="62" y="42" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#0E1B2C">Vertex</text>
+  <text x="62" y="58" font-family="Georgia, serif" font-size="9" font-style="italic" fill="#8395A7">Grupo Empresarial</text>
+</svg>

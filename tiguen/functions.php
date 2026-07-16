@@ -13,6 +13,7 @@ require_once get_template_directory() . '/inc/gallery-metabox.php';
 require_once get_template_directory() . '/inc/admin-submissions.php';
 require_once get_template_directory() . '/inc/reviews-scraper.php';
 require_once get_template_directory() . '/inc/smtp-config.php';
+require_once get_template_directory() . '/inc/logos-manager.php';
 
 // Meta boxes nativos só carregam se ACF não estiver ativo
 if ( ! function_exists('acf_add_local_field_group') ) {
@@ -128,6 +129,40 @@ function tiguen_scan_images_dir( $subdir ) {
     }
     sort( $files );
     return $files;
+}
+
+/**
+ * Retorna a lista de logos (clientes|selos) para exibir no frontend.
+ * Prioriza IDs de anexos escolhidos no admin (Aparência → Logos de Clientes/Selos).
+ * Se vazio, faz fallback para os arquivos placeholder em assets/images/<tipo>/.
+ *
+ * @param string $tipo 'clientes' | 'selos'
+ * @return array de ['url' => string, 'alt' => string]
+ */
+function tiguen_get_logos( $tipo ) {
+    $logos = [];
+
+    // 1) Preferência: IDs escolhidos no admin
+    if ( function_exists( 'tiguen_get_logo_ids' ) ) {
+        foreach ( tiguen_get_logo_ids( $tipo ) as $id ) {
+            $url = wp_get_attachment_image_url( $id, 'medium' );
+            if ( ! $url ) continue;
+            $logos[] = [
+                'url' => $url,
+                'alt' => get_post_meta( $id, '_wp_attachment_image_alt', true ) ?: get_the_title( $id ),
+            ];
+        }
+        if ( $logos ) return $logos;
+    }
+
+    // 2) Fallback: placeholders do tema
+    foreach ( tiguen_scan_images_dir( $tipo ) as $file ) {
+        $logos[] = [
+            'url' => get_template_directory_uri() . '/assets/images/' . $tipo . '/' . $file,
+            'alt' => pathinfo( $file, PATHINFO_FILENAME ),
+        ];
+    }
+    return $logos;
 }
 
 // Helper: embed YouTube/Vimeo

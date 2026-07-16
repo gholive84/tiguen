@@ -56,7 +56,7 @@ $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full'
 <!-- ═══════════════════════════════════════════════════════════
      SLIDER DE CLIENTES
 ════════════════════════════════════════════════════════════ -->
-<?php $clientes = tiguen_scan_images_dir( 'clientes' ); if ( $clientes ) : ?>
+<?php $clientes = tiguen_get_logos( 'clientes' ); if ( $clientes ) : ?>
 <section class="section clientes-section" data-animate>
     <div class="container">
         <div class="section-header">
@@ -67,11 +67,11 @@ $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full'
     <div class="clientes-marquee" aria-label="Logos dos clientes">
         <div class="clientes-marquee__track">
             <?php // Duplica os logos duas vezes para loop contínuo
-            foreach ( array_merge( $clientes, $clientes ) as $file ) : ?>
+            foreach ( array_merge( $clientes, $clientes ) as $logo ) : ?>
                 <div class="clientes-marquee__item">
                     <img
-                        src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/clientes/' . $file ); ?>"
-                        alt="<?php echo esc_attr( pathinfo( $file, PATHINFO_FILENAME ) ); ?>"
+                        src="<?php echo esc_url( $logo['url'] ); ?>"
+                        alt="<?php echo esc_attr( $logo['alt'] ); ?>"
                         loading="lazy">
                 </div>
             <?php endforeach; ?>
