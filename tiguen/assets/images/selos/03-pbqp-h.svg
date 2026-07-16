@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <path d="M80 15 L100 55 L145 62 L112 92 L120 138 L80 116 L40 138 L48 92 L15 62 L60 55 Z" fill="#B45309" opacity="0.15" stroke="#B45309" stroke-width="4" stroke-linejoin="round"/>
+  <text x="80" y="82" font-family="Arial, sans-serif" font-size="24" font-weight="900" fill="#B45309" text-anchor="middle">PBQP-H</text>
+  <text x="80" y="102" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#B45309" text-anchor="middle" letter-spacing="1">NÍVEL A</text>
+  <text x="80" y="116" font-family="Arial, sans-serif" font-size="6" font-weight="600" fill="#8395A7" text-anchor="middle" letter-spacing="2">QUALIDADE HABITACIONAL</text>
+</svg>
