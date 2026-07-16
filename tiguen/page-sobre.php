@@ -101,20 +101,4 @@ get_header(); ?>
     </div>
 </section>
 
-<!-- SELOS E CERTIFICAÇÕES -->
-<section class="section section--dark">
-    <div class="container">
-        <div class="section-header section-header--light">
-            <span class="section-label">Qualidade garantida</span>
-            <h2 class="section-title">Instituições, Selos e Certificações</h2>
-        </div>
-        <div class="selos-grid" id="selos-grid">
-            <!-- Adicionar logos via WordPress (Aparência > Widgets ou diretamente aqui) -->
-            <div class="selos-placeholder">
-                <p>Logotipos das certificações serão exibidos aqui.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
 <?php get_footer(); ?>

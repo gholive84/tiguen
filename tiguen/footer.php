@@ -1,3 +1,24 @@
+<?php $selos = tiguen_scan_images_dir( 'selos' ); if ( $selos ) : ?>
+<section class="pre-footer-selos">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Qualidade garantida</span>
+            <h2 class="section-title">Selos e Certificações</h2>
+        </div>
+        <div class="pre-footer-selos__grid">
+            <?php foreach ( $selos as $file ) : ?>
+                <div class="pre-footer-selos__item">
+                    <img
+                        src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/selos/' . $file ); ?>"
+                        alt="<?php echo esc_attr( pathinfo( $file, PATHINFO_FILENAME ) ); ?>"
+                        loading="lazy">
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
 <footer id="colophon" class="site-footer">
     <div class="container">
         <div class="footer-grid">

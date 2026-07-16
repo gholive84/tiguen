@@ -48,7 +48,7 @@ add_action( 'after_setup_theme', 'tiguen_setup' );
 // Enqueue
 function tiguen_scripts() {
     wp_enqueue_style( 'tiguen-style', get_stylesheet_uri(), [], '1.0.0' );
-    wp_enqueue_style( 'tiguen-main',  get_template_directory_uri() . '/assets/css/main.css', [], '1.7.7' );
+    wp_enqueue_style( 'tiguen-main',  get_template_directory_uri() . '/assets/css/main.css', [], '1.7.8' );
     wp_enqueue_script( 'tiguen-main', get_template_directory_uri() . '/assets/js/main.js', [ 'jquery' ], '1.7.4', true );
 
     wp_localize_script( 'tiguen-main', 'tiguenData', [
@@ -114,6 +114,21 @@ add_filter( 'template_include', function( $template ) {
     }
     return $template;
 });
+
+// Helper: escaneia uma subpasta de assets/images e retorna a lista de arquivos de imagem
+function tiguen_scan_images_dir( $subdir ) {
+    $dir = get_template_directory() . '/assets/images/' . trim( $subdir, '/' ) . '/';
+    if ( ! is_dir( $dir ) ) return [];
+    $exts  = [ 'jpg', 'jpeg', 'png', 'svg', 'webp', 'gif' ];
+    $files = [];
+    foreach ( scandir( $dir ) as $f ) {
+        if ( $f === '.' || $f === '..' || $f === '.gitkeep' ) continue;
+        $ext = strtolower( pathinfo( $f, PATHINFO_EXTENSION ) );
+        if ( in_array( $ext, $exts, true ) ) $files[] = $f;
+    }
+    sort( $files );
+    return $files;
+}
 
 // Helper: embed YouTube/Vimeo
 function tiguen_get_video_embed( $url ) {
