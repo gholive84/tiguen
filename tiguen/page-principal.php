@@ -93,11 +93,10 @@ $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full'
             <h2 class="section-title">Empresas que <span class="highlight">confiam</span> na Tiguen</h2>
         </div>
     </div>
-    <div class="clientes-marquee" aria-label="Logos dos clientes">
-        <div class="clientes-marquee__track">
-            <?php // Duplica os logos duas vezes para loop contínuo
-            foreach ( array_merge( $clientes, $clientes ) as $logo ) : ?>
-                <div class="clientes-marquee__item">
+    <div class="container">
+        <div class="clientes-static" aria-label="Logos dos clientes">
+            <?php foreach ( $clientes as $logo ) : ?>
+                <div class="clientes-static__item">
                     <img
                         src="<?php echo esc_url( $logo['url'] ); ?>"
                         alt="<?php echo esc_attr( $logo['alt'] ); ?>"
