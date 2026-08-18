@@ -350,12 +350,12 @@ a  { color: inherit; text-decoration: none; }
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100px;
-    min-width: 140px;
+    height: 150px;
+    min-width: 180px;
 }
 .clientes-static__item img {
-    max-height: 90px;
-    max-width: 200px;
+    max-height: 140px;
+    max-width: 280px;
     width: auto;
     object-fit: contain;
     filter: grayscale(1);
